@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Template_Project</string>
+    <string name="nav_ve_phim">Đặt vé theo phim</string>
+    <string name="nav_ve_rap">Đặt vé theo rạp</string>
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_account">Tài khoản</string>
+    <string name="nav_ticket">Vé của tôi</string>
+    <string name="nav_reqass">Đổi mật khẩu</string>
+    <string name="nav_logout">Đăng xuất</string>
+
+</resources>
