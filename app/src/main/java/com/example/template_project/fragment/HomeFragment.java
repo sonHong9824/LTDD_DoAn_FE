@@ -9,18 +9,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.template_project.R;
 import com.example.template_project.adapter.BannerAdapter;
+import com.example.template_project.adapter.CatagoryAdapter;
 import com.example.template_project.adapter.FeatureAdapter;
+import com.example.template_project.adapter.MovieShowingminAdapter;
 import com.example.template_project.model.Banner;
+import com.example.template_project.model.Catagory;
 import com.example.template_project.model.Movie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -29,10 +36,13 @@ public class HomeFragment extends Fragment {
     private View mView;
 
     private ViewPager2 viewPager2, mViewPage2_feature;
+    private RecyclerView rcvCatagory;
+    private CatagoryAdapter catagoryAdapter;
 
     private CircleIndicator3 circleIndicator3;
     private List<Banner> mListBanner;
     private List<Movie> mListFeature;
+    private List<Movie> mListMovieShowing;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
@@ -53,10 +63,16 @@ public class HomeFragment extends Fragment {
         viewPager2 = mView.findViewById(R.id.view_pager_banner);
         mViewPage2_feature = mView.findViewById(R.id.view_pager_feature);
         circleIndicator3 = mView.findViewById(R.id.circle_indicator_banner);
+        rcvCatagory = mView.findViewById(R.id.rcv_catagory);
+        catagoryAdapter = new CatagoryAdapter(requireContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
+        rcvCatagory.setLayoutManager(linearLayoutManager);
+        catagoryAdapter.setData(getListCatagory());
+        rcvCatagory.setAdapter(catagoryAdapter);
 
         mListBanner = getListBanner();
         mListFeature = getListFeature();
-
 
         FeatureAdapter featureAdapter = new FeatureAdapter(mListFeature);
         mViewPage2_feature.setAdapter(featureAdapter);
@@ -64,6 +80,8 @@ public class HomeFragment extends Fragment {
         mViewPage2_feature.setOffscreenPageLimit(3);
         mViewPage2_feature.setClipChildren(false);
         mViewPage2_feature.setClipToPadding(false);
+
+
 
         mViewPage2_feature.setCurrentItem(1, false);
         // Lắng nghe sự kiện cuộn
@@ -84,18 +102,17 @@ public class HomeFragment extends Fragment {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float scaleFactor = 0.75f + (1 - Math.abs(position)) * 0.25f; // Điều chỉnh kích thước nhỏ hơn ảnh trung tâm
+                float scaleFactor = 0.75f + (1 - Math.abs(position)) * 0.25f;
                 page.setScaleX(scaleFactor);
                 page.setScaleY(scaleFactor);
 
-                float rotation = position * -20f; // Nghiêng ảnh để tạo hiệu ứng 3D
+                float rotation = position * -20f;
                 page.setRotationY(rotation);
 
-                // Điều chỉnh trục xoay để tạo hiệu ứng góc thu hẹp
                 if (position < 0) {
-                    page.setPivotX(page.getWidth() * 0.9f); // Dịch trục xoay về bên phải
+                    page.setPivotX(page.getWidth() * 0.9f);
                 } else {
-                    page.setPivotX(page.getWidth() * 0.1f); // Dịch trục xoay về bên trái
+                    page.setPivotX(page.getWidth() * 0.1f);
                 }
             }
         });
@@ -121,6 +138,26 @@ public class HomeFragment extends Fragment {
 
         return mView;
     }
+
+    private List<Catagory> getListCatagory() {
+        List<Catagory> list = new ArrayList<>();
+        List<Movie> listMoive = new ArrayList<>();
+
+        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
+                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
+        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
+                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
+        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
+                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
+        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
+                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
+
+        list.add(new Catagory("Phim hay đang chiếu", listMoive));
+        list.add(new Catagory("Phim sắp chiếu", listMoive));
+
+        return list;
+    }
+
     private  List<Movie> getListFeature(){
         List<Movie> list = new ArrayList<>();
         list.add(new Movie( "3",R.drawable.movie3));

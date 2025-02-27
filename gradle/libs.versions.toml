@@ -19,7 +19,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 cardview = { group = "androidx.cardview", name = "cardview", version = "1.0.0"}
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.4.0"}
 circleindicator = { group = "me.relex", name = "circleindicator", version = "2.1.6"}
-
+glide = { group = "com.github.bumptech.glide", name = "glide", version = "4.16.0"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

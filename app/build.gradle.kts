@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.cardview)
+    implementation(libs.glide)
     implementation(libs.circleindicator)
     implementation(libs.recyclerview)
     implementation(libs.constraintlayout)
