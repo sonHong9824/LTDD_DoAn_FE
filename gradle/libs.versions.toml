@@ -22,7 +22,7 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 circleindicator = { group = "me.relex", name = "circleindicator", version = "2.1.6"}
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-
+glide = { group = "com.github.bumptech.glide", name = "glide", version = "4.16.0"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 

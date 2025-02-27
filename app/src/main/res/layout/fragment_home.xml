@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll_1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="600dp"
@@ -32,11 +38,21 @@
                 app:layout_constraintTop_toBottomOf="@id/view_pager_banner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/txt_1"
+                android:paddingTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/circle_indicator_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="20dp"
+                android:textSize="20sp"
+                android:text="Phim nổi bật"/>
 
             <androidx.viewpager2.widget.ViewPager2
-                android:layout_marginTop="40dp"
                 android:id="@+id/view_pager_feature"
-                app:layout_constraintTop_toBottomOf="@+id/circle_indicator_banner"
+                app:layout_constraintTop_toBottomOf="@+id/txt_1"
                 android:layout_width="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +61,16 @@
                 android:layout_height="250dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_catagory"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

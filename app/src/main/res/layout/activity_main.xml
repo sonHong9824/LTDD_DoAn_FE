@@ -23,7 +23,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="@android:color/transparent"
+                android:background="#72767C"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
