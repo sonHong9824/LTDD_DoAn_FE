@@ -2,6 +2,7 @@ package com.example.template_project.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,23 @@ import com.example.template_project.adapter.FeatureAdapter;
 import com.example.template_project.adapter.MovieShowingminAdapter;
 import com.example.template_project.model.Banner;
 import com.example.template_project.model.Catagory;
+import com.example.template_project.model.Genre;
 import com.example.template_project.model.Movie;
+import com.example.template_project.model.MovieSummary;
+import com.example.template_project.retrofit.CinemaApi;
+import com.example.template_project.retrofit.MovieApi;
+import com.example.template_project.retrofit.RetrofitService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.MissingFormatArgumentException;
 
 import me.relex.circleindicator.CircleIndicator3;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -68,8 +78,6 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         rcvCatagory.setLayoutManager(linearLayoutManager);
-        catagoryAdapter.setData(getListCatagory());
-        rcvCatagory.setAdapter(catagoryAdapter);
 
         mListBanner = getListBanner();
         mListFeature = getListFeature();
@@ -77,10 +85,19 @@ public class HomeFragment extends Fragment {
         FeatureAdapter featureAdapter = new FeatureAdapter(mListFeature);
         mViewPage2_feature.setAdapter(featureAdapter);
 
+        rcvCatagory.setAdapter(catagoryAdapter);
+        getListCatagory(); // Gọi API sau khi adapter được gắn
+
         mViewPage2_feature.setOffscreenPageLimit(3);
         mViewPage2_feature.setClipChildren(false);
         mViewPage2_feature.setClipToPadding(false);
-
+        mViewPage2_feature.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        mViewPage2_feature.setClipChildren(false);
+        ViewGroup viewGroup = (ViewGroup) mViewPage2_feature.getChildAt(0);
+        if (viewGroup instanceof RecyclerView) {
+            viewGroup.setClipChildren(false);
+            viewGroup.setClipToPadding(false);
+        }
 
 
         mViewPage2_feature.setCurrentItem(1, false);
@@ -89,34 +106,32 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 int itemCount = featureAdapter.getItemCount();
-                if (position == 0) {
-                    mViewPage2_feature.postDelayed(() -> mViewPage2_feature.setCurrentItem(itemCount - 2, false), 300);
-                } else if (position == itemCount - 1) {
-                    mViewPage2_feature.postDelayed(() -> mViewPage2_feature.setCurrentItem(1, false), 300);
-                }
+                if (itemCount < 3) return; // Đảm bảo có đủ item để tránh lỗi
+
+                mViewPage2_feature.post(() -> {
+                    if (position == 0) {
+                        mViewPage2_feature.setCurrentItem(itemCount - 2, false); // Nhảy về item trước cuối
+                    } else if (position == itemCount - 1) {
+                        mViewPage2_feature.setCurrentItem(1, false); // Nhảy về item thứ 1
+                    }
+                });
             }
         });
 
-        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(30));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new MarginPageTransformer(40)); // Tăng margin giữa các item
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float scaleFactor = 0.75f + (1 - Math.abs(position)) * 0.25f;
-                page.setScaleX(scaleFactor);
-                page.setScaleY(scaleFactor);
+                float scale = 0.85f + (1 - Math.abs(position)) * 0.1f; // Giảm scale nhỏ hơn
+                page.setScaleX(scale);
+                page.setScaleY(scale);
 
-                float rotation = position * -20f;
-                page.setRotationY(rotation);
-
-                if (position < 0) {
-                    page.setPivotX(page.getWidth() * 0.9f);
-                } else {
-                    page.setPivotX(page.getWidth() * 0.1f);
-                }
+                // Giữ vị trí trung tâm khi cuộn
+                page.setPivotX(page.getWidth() * 0.5f);
             }
         });
-        mViewPage2_feature.setPageTransformer(compositePageTransformer);
+        mViewPage2_feature.setPageTransformer(transformer);
 
 
         BannerAdapter bannerAdapter = new BannerAdapter(mListBanner);
@@ -139,35 +154,96 @@ public class HomeFragment extends Fragment {
         return mView;
     }
 
-    private List<Catagory> getListCatagory() {
-        List<Catagory> list = new ArrayList<>();
-        List<Movie> listMoive = new ArrayList<>();
+    private void getListCatagory() {
+        RetrofitService retrofitService = new RetrofitService();
+        MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);
 
-        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
-                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
-        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
-                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
-        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
-                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
-        listMoive.add(new Movie("CAPTAIN AMERICA: THẾ GIỚI MỚI", "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg"
-                , Arrays.asList("Hành Động", "Khoa Học Viễn Tưởng")));
+        List<Catagory> listCatagory = new ArrayList<>();
 
-        list.add(new Catagory("Phim hay đang chiếu", listMoive));
-        list.add(new Catagory("Phim sắp chiếu", listMoive));
+        movieApi.getComingSoonMovies().enqueue(new Callback<List<MovieSummary>>() {
+            @Override
+            public void onResponse(Call<List<MovieSummary>> call, Response<List<MovieSummary>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listCatagory.add(new Catagory("Phim sắp chiếu", response.body()));
+                    checkAndUpdateAdapter(listCatagory);
+                } else {
+                    Log.e("API_RESPONSE", "Coming Soon Response Failed - Code: " + response.code());
+                }
+            }
 
-        return list;
+            @Override
+            public void onFailure(Call<List<MovieSummary>> call, Throwable t) {
+                Log.e("API_ERROR", "Coming Soon Error: " + t.getMessage());
+            }
+        });
+
+        movieApi.getNowShowingMovies().enqueue(new Callback<List<MovieSummary>>() {
+            @Override
+            public void onResponse(Call<List<MovieSummary>> call, Response<List<MovieSummary>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listCatagory.add(new Catagory("Phim hay đang chiếu", response.body()));
+                    checkAndUpdateAdapter(listCatagory);
+                } else {
+                    Log.e("API_RESPONSE", "Now Showing Response Failed - Code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MovieSummary>> call, Throwable t) {
+                Log.e("API_ERROR", "Now Showing Error: " + t.getMessage());
+            }
+        });
+
+
     }
+
+    // Kiểm tra nếu cả 2 danh sách đã được thêm thì cập nhật Adapter
+    private void checkAndUpdateAdapter(List<Catagory> listCatagory) {
+        if (listCatagory.size() == 2) { // Đợi cả hai danh sách được tải
+            catagoryAdapter.setData(listCatagory);
+            catagoryAdapter.notifyDataSetChanged();
+        }
+    }
+
+
 
     private  List<Movie> getListFeature(){
         List<Movie> list = new ArrayList<>();
-        list.add(new Movie( "3",R.drawable.movie3));
+        list.add(new Movie(
+                "1",
+                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
+                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
+                140,
+                "2025-07-04",
+                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
+                "https://www.youtube.com/watch?v=abcd1234",
+                "NOW_SHOWING",
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+        ));
 
-        list.add(new Movie("1",R.drawable.movie1));
-        list.add(new Movie("2",R.drawable.movie2));
-        list.add(new Movie("3",R.drawable.movie3));
 
-        list.add(new Movie("1",R.drawable.movie1));
-
+        list.add(new Movie(
+                "1",
+                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
+                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
+                140,
+                "2025-07-04",
+                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
+                "https://www.youtube.com/watch?v=abcd1234",
+                "NOW_SHOWING",
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+        ));
+        list.add(new Movie(
+                "1",
+                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
+                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
+                140,
+                "2025-07-04",
+                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
+                "https://www.youtube.com/watch?v=abcd1234",
+                "NOW_SHOWING",
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+        ));
         return list;
     }
 

@@ -37,6 +37,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaHolder>{
 
     @Override
     public int getItemCount() {
-        return cinemaList.size();
+        return (cinemaList != null) ? cinemaList.size() : 0;
     }
+
 }

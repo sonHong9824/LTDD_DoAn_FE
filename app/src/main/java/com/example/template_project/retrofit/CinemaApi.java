@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface CinemaApi {
-    @GET("/cinemas")
+    @GET("/cinema/get-all")
     Call<List<Cinema>> getAllCinemas();
     @POST("/cinemas")
     Call<Cinema>save(@Body Cinema cinema);

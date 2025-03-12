@@ -1,5 +1,6 @@
 package com.example.template_project.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.template_project.R;
 import com.example.template_project.model.Movie;
 
@@ -35,7 +37,12 @@ public class FeatureAdapter extends RecyclerView.Adapter<FeatureAdapter.FeatureV
         if(movie == null){
             return;
         }
-        holder.img_feature.setImageResource(movie.getResourceId());
+        Glide.with(holder.img_feature.getContext())
+                .load(movie.getPosterUrl()) // URL của ảnh
+                .placeholder(R.drawable.placeholder_img) // Ảnh mặc định khi tải
+                .error(R.drawable.error_img) // Ảnh lỗi nếu URL sai
+                .into(holder.img_feature); // Đưa vào ImageView
+        Log.d("MovieAdapter", "Image URL: " + movie.getPosterUrl());
         holder.txt_title.setText(movie.getTitle());
 
     }

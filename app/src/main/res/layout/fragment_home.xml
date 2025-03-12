@@ -13,7 +13,7 @@
         android:id="@+id/ll_1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="700dp"
         android:background="@drawable/poster1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingStart="80dp"
                 android:paddingEnd="80dp"
-                android:layout_height="250dp"/>
+                android:layout_height="300dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

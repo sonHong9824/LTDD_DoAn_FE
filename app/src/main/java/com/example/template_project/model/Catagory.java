@@ -4,12 +4,7 @@ import java.util.List;
 
 public class Catagory {
     private String nameCatagory;
-    private List<Movie> movies;
-
-    public Catagory(String nameCatagory, List<Movie> movies) {
-        this.nameCatagory = nameCatagory;
-        this.movies = movies;
-    }
+    private List<MovieSummary> movies;
 
     public String getNameCatagory() {
         return nameCatagory;
@@ -19,11 +14,16 @@ public class Catagory {
         this.nameCatagory = nameCatagory;
     }
 
-    public List<Movie> getMovies() {
+    public List<MovieSummary> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MovieSummary> movies) {
+        this.movies = movies;
+    }
+
+    public Catagory(String nameCatagory, List<MovieSummary> movies) {
+        this.nameCatagory = nameCatagory;
         this.movies = movies;
     }
 }

@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.template_project.R;
+import com.example.template_project.model.Genre;
 import com.example.template_project.model.Movie;
+import com.example.template_project.model.MovieSummary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieShowingminAdapter extends RecyclerView.Adapter<MovieShowingminAdapter.MovieShowingminViewHolder> {
-    private List<Movie> mListMove;
+    private List<MovieSummary> mListMove;
 
-    public void setData(List<Movie> list){
+    public void setData(List<MovieSummary> list){
         this.mListMove = list;
         notifyDataSetChanged();
     }
@@ -34,21 +37,35 @@ public class MovieShowingminAdapter extends RecyclerView.Adapter<MovieShowingmin
 
     @Override
     public void onBindViewHolder(@NonNull MovieShowingminViewHolder holder, int position) {
-        Movie movie = mListMove.get(position);
-        if(movie == null){
+        MovieSummary movieSummary = mListMove.get(position);
+        if(movieSummary == null){
             return;
         }
         Glide.with(holder.imgMoive.getContext())
-                .load(movie.getPosterUrl()) // URL của ảnh
+                .load(movieSummary.getMovie().getPosterUrl()) // URL của ảnh
                 .placeholder(R.drawable.placeholder_img) // Ảnh mặc định khi tải
                 .error(R.drawable.error_img) // Ảnh lỗi nếu URL sai
                 .into(holder.imgMoive); // Đưa vào ImageView
-        Log.d("MovieAdapter", "Image URL: " + movie.getPosterUrl());
+        Log.d("MovieAdapter", "Image URL: " + movieSummary.getMovie().getPosterUrl());
 
-        holder.txt_name.setText(movie.getTitle());
+        holder.txt_name.setText(movieSummary.getMovie().getTitle());
+        Double rating = movieSummary.getAverageRating();
+        Long totalReviews = movieSummary.getTotalReviews();
 
-        List<String> genres = movie.getGenre();
-        holder.txt_genre.setText(TextUtils.join(", ", genres));
+        String ratingText = (rating != null ? String.format("%.1f", rating) : "0") + "/" +
+                (totalReviews != null ? totalReviews : "0");
+
+        holder.txt_rating.setText(ratingText);
+        List<Genre> genres = movieSummary.getMovie().getGenres();
+        // Chuyển List<Genre> thành List<String> chứa tên thể loại
+        List<String> genreNames = new ArrayList<>();
+        for (Genre genre : genres) {
+            genreNames.add(genre.getName()); // Lấy tên thể loại
+        }
+
+        // Hiển thị thể loại dưới dạng "Hành động, Khoa học viễn tưởng"
+        holder.txt_genre.setText(TextUtils.join(", ", genreNames));
+
     }
 
     @Override
@@ -63,13 +80,14 @@ public class MovieShowingminAdapter extends RecyclerView.Adapter<MovieShowingmin
         private ImageView imgMoive;
         private TextView txt_name;
         private TextView txt_genre;
+        private TextView txt_rating;
 
         public MovieShowingminViewHolder(@NonNull View itemView) {
             super(itemView);
             imgMoive = itemView.findViewById(R.id.img_showing);
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_genre = itemView.findViewById(R.id.txt_genre);
-
+            txt_rating = itemView.findViewById(R.id.txt_rating);
         }
     }
 }
