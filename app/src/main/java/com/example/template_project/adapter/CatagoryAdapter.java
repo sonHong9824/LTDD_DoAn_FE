@@ -46,7 +46,7 @@ public class CatagoryAdapter extends RecyclerView.Adapter<CatagoryAdapter.Catago
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL, false);
         holder.rcvShowing.setLayoutManager(linearLayoutManager);
 
-        MovieShowingminAdapter movieShowingminAdapter = new MovieShowingminAdapter();
+        MovieShowingAdapter movieShowingminAdapter = new MovieShowingAdapter();
         movieShowingminAdapter.setData(catagory.getMovies());
         holder.rcvShowing.setAdapter(movieShowingminAdapter);
 

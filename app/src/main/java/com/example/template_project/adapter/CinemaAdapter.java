@@ -24,7 +24,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaHolder>{
     @Override
     public CinemaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_cinema_item, parent, false);
+                .inflate(R.layout.row_cinema_booking, parent, false);
         return new CinemaHolder(view);
     }
 

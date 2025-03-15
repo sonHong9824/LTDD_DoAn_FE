@@ -20,21 +20,17 @@ import com.example.template_project.R;
 import com.example.template_project.adapter.BannerAdapter;
 import com.example.template_project.adapter.CatagoryAdapter;
 import com.example.template_project.adapter.FeatureAdapter;
-import com.example.template_project.adapter.MovieShowingminAdapter;
 import com.example.template_project.model.Banner;
 import com.example.template_project.model.Catagory;
 import com.example.template_project.model.Genre;
 import com.example.template_project.model.Movie;
 import com.example.template_project.model.MovieSummary;
-import com.example.template_project.retrofit.CinemaApi;
 import com.example.template_project.retrofit.MovieApi;
 import com.example.template_project.retrofit.RetrofitService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.MissingFormatArgumentException;
 
 import me.relex.circleindicator.CircleIndicator3;
 import retrofit2.Call;

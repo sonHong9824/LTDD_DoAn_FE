@@ -1,13 +1,9 @@
 package com.example.template_project;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.MenuItem;
-import android.view.View;
-import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -23,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.template_project.fragment.CinemaFragment;
 import com.example.template_project.fragment.HomeFragment;
-import com.example.template_project.fragment.MovieShowingFragment;
+import com.example.template_project.fragment.MovieBookingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_vp) {
             if(mCurrentFragment != FRAGMENT_MOVIE_SHOWING){
-                replaceFragment(new MovieShowingFragment());
+                replaceFragment(new MovieBookingFragment());
                 mCurrentFragment = FRAGMENT_MOVIE_SHOWING;
             }
             

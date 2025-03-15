@@ -17,15 +17,16 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:title="CINEMA"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/white_bg"
                 android:gravity="center"
                 android:textAlignment="center"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="#72767C"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                app:title="CINEMA">
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>

@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.template_project.R;
 import com.example.template_project.model.Genre;
-import com.example.template_project.model.Movie;
 import com.example.template_project.model.MovieSummary;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieShowingminAdapter extends RecyclerView.Adapter<MovieShowingminAdapter.MovieShowingminViewHolder> {
+public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapter.MovieShowingminViewHolder> {
     private List<MovieSummary> mListMove;
 
     public void setData(List<MovieSummary> list){

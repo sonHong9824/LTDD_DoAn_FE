@@ -7,7 +7,7 @@
     android:background="@drawable/white_bg">
 
     <TextView
-        android:id="@+id/cinemaListItem_name"
+        android:id="@+id/txtCinemaName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,15 +19,15 @@
         app:layout_constraintTop_toTopOf="@+id/cardView" />
 
     <TextView
-        android:id="@+id/cinemaListItem_location"
+        android:id="@+id/txtCinemaLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:text="Location"
         android:textColor="@android:color/darker_gray"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/cinemaListItem_name"
-        app:layout_constraintTop_toBottomOf="@+id/cinemaListItem_name" />
+        app:layout_constraintStart_toStartOf="@+id/txtCinemaName"
+        app:layout_constraintTop_toBottomOf="@+id/txtCinemaName" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -77,11 +77,12 @@
     <View
         android:layout_width="386dp"
         android:layout_height="0.5dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:background="#C2C2C2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cinemaListItem_location"
-        tools:layout_editor_absoluteX="19dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCinemaLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

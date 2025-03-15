@@ -14,7 +14,7 @@ public class CinemaHolder extends RecyclerView.ViewHolder{
 
     public CinemaHolder(@NonNull View itemView) {
         super(itemView);
-        name = itemView.findViewById(R.id.cinemaListItem_name);
-        location = itemView.findViewById(R.id.cinemaListItem_location);
+        name = itemView.findViewById(R.id.txtCinemaName);
+        location = itemView.findViewById(R.id.txtCinemaLocation);
     }
 }

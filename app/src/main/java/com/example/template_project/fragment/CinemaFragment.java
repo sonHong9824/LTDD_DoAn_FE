@@ -31,7 +31,7 @@ public class CinemaFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cinema, container, false);
+        View view = inflater.inflate(R.layout.fragment_cinema_booking, container, false);
         recyclerView = view.findViewById(R.id.cinemaList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
