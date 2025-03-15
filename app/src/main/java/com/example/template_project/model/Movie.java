@@ -10,6 +10,25 @@ public class Movie {
     private String releaseDate;  // Retrofit xử lý kiểu String thay vì LocalDate
     private String posterUrl;
     private String trailerUrl;
+    private String scope;
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    private String language;
 
     public String getId() {
         return id;
@@ -78,12 +97,10 @@ public class Movie {
     public List<Genre> getGenres() {
         return genres;
     }
+    private String status;
+    private List<Genre> genres;
 
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public Movie(String id, String title, String description, int duration, String releaseDate, String posterUrl, String trailerUrl, String status, List<Genre> genres) {
+    public Movie(String id, String title, String description, int duration, String releaseDate, String posterUrl, String trailerUrl, String status, List<Genre> genres,String scope,String language) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -93,8 +110,7 @@ public class Movie {
         this.trailerUrl = trailerUrl;
         this.status = status;
         this.genres = genres;
+        this.scope = scope;
+        this.language = language;
     }
-
-    private String status;
-    private List<Genre> genres;
 }

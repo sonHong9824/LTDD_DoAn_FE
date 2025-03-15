@@ -53,9 +53,21 @@ public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapte
         for (Genre genre : genres) {
             genreNames.add(genre.getName()); // Lấy tên thể loại
         }
-        holder.txt_genre.setText("Thể loại: "+TextUtils.join(", ", genreNames));
-        holder.txt_releaseDate.setText("Khởi chiếu: " +movieSummary.getMovie().getReleaseDate());
-        holder.txt_duration.setText("Thời lượng: " +movieSummary.getMovie().getDuration() + " phút");
+        holder.txt_genre.setText(String.format("Khởi chiếu: %s", TextUtils.join(", ", genreNames)));
+        holder.txt_releaseDate.setText(String.format("Khởi chiếu: %s", movieSummary.getMovie().getReleaseDate()));
+        holder.txt_duration.setText(String.format("Thời lượng: %s phút", movieSummary.getMovie().getDuration()));
+
+        String scope = movieSummary.getMovie().getScope();
+        int drawableRes;
+        if ("16".equals(scope)) { 
+            drawableRes = R.drawable.anh16;
+        } else if ("18".equals(scope)) {
+            drawableRes = R.drawable.anh18;
+        } else {
+            drawableRes = R.drawable.error_img;
+        }
+
+        holder.imgScope.setImageResource(drawableRes);
     }
 
     @Override

@@ -214,7 +214,7 @@ public class HomeFragment extends Fragment {
                 "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
                 "https://www.youtube.com/watch?v=abcd1234",
                 "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
         ));
 
 
@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment {
                 "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
                 "https://www.youtube.com/watch?v=abcd1234",
                 "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
         ));
         list.add(new Movie(
                 "1",
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment {
                 "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
                 "https://www.youtube.com/watch?v=abcd1234",
                 "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng"))
+                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
         ));
         return list;
     }
