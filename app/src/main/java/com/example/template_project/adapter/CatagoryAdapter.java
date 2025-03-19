@@ -18,6 +18,12 @@ import java.util.List;
 public class CatagoryAdapter extends RecyclerView.Adapter<CatagoryAdapter.CatagoryViewHolder>{
     private Context mContext;
     private List<Catagory> mListCatagory;
+    private MovieShowingAdapter.OnMovieClickListener listener;
+    public CatagoryAdapter(Context mContext, MovieShowingAdapter.OnMovieClickListener listener) {
+        this.mContext = mContext;
+        this.listener = listener;
+    }
+
 
     public CatagoryAdapter(Context mContext) {
         this.mContext = mContext;
@@ -46,9 +52,10 @@ public class CatagoryAdapter extends RecyclerView.Adapter<CatagoryAdapter.Catago
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL, false);
         holder.rcvShowing.setLayoutManager(linearLayoutManager);
 
-        MovieShowingAdapter movieShowingminAdapter = new MovieShowingAdapter();
-        movieShowingminAdapter.setData(catagory.getMovies());
-        holder.rcvShowing.setAdapter(movieShowingminAdapter);
+        // Truyền listener vào MovieShowingAdapter
+        MovieShowingAdapter movieShowingAdapter = new MovieShowingAdapter(listener);
+        movieShowingAdapter.setData(catagory.getMovies());
+        holder.rcvShowing.setAdapter(movieShowingAdapter);
 
     }
 

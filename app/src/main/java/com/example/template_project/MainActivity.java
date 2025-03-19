@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int FRAGMENT_HOME = 1;
     public static final int FRAGMENT_CINEMA = 2;
     public static final int FRAGMENT_MOVIE_SHOWING = 3;
-
     private int mCurrentFragment = FRAGMENT_HOME;
-
 
     private DrawerLayout drawerLayout;
 
@@ -98,10 +96,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void replaceFragment(Fragment fragment){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_frame, fragment);
-        transaction.commit();
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment) // Đảm bảo ID này khớp với activity_main.xml
+                .addToBackStack(null) // Cho phép quay lại Fragment trước đó
+                .commit();
     }
+
 
 }

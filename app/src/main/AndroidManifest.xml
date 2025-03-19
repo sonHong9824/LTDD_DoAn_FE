@@ -25,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".YouTubePlayerActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.FullScreen"/>
     </application>
 
 </manifest>

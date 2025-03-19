@@ -1,8 +1,9 @@
 package com.example.template_project.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private String id;
     private String title;
     private String description;
@@ -11,6 +12,30 @@ public class Movie {
     private String posterUrl;
     private String trailerUrl;
     private String scope;
+    private String backdropUrl;
+
+    public String getBackdropUrl() {
+        return backdropUrl;
+    }
+
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
+    }
+
+    public Movie(String id, String title, String description, int duration, String releaseDate, String posterUrl, String trailerUrl, String scope, String backdropUrl, String language, String status, List<Genre> genres) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
+        this.releaseDate = releaseDate;
+        this.posterUrl = posterUrl;
+        this.trailerUrl = trailerUrl;
+        this.scope = scope;
+        this.backdropUrl = backdropUrl;
+        this.language = language;
+        this.status = status;
+        this.genres = genres;
+    }
 
     public String getLanguage() {
         return language;

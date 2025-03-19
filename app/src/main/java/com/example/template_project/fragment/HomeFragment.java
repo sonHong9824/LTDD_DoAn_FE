@@ -1,7 +1,9 @@
 package com.example.template_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +12,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.template_project.MainActivity;
 import com.example.template_project.R;
 import com.example.template_project.adapter.BannerAdapter;
 import com.example.template_project.adapter.CatagoryAdapter;
 import com.example.template_project.adapter.FeatureAdapter;
+import com.example.template_project.adapter.MovieShowingAdapter;
 import com.example.template_project.model.Banner;
 import com.example.template_project.model.Catagory;
 import com.example.template_project.model.Genre;
@@ -70,7 +75,15 @@ public class HomeFragment extends Fragment {
         mViewPage2_feature = mView.findViewById(R.id.view_pager_feature);
         circleIndicator3 = mView.findViewById(R.id.circle_indicator_banner);
         rcvCatagory = mView.findViewById(R.id.rcv_catagory);
-        catagoryAdapter = new CatagoryAdapter(requireContext());
+//        catagoryAdapter = new CatagoryAdapter(requireContext());
+        catagoryAdapter = new CatagoryAdapter(requireContext(), new MovieShowingAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieClick(MovieSummary movieSummary) {
+                MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieSummary);
+                ((MainActivity) requireActivity()).replaceFragment(movieDetailFragment);
+            }
+        });
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         rcvCatagory.setLayoutManager(linearLayoutManager);
@@ -266,4 +279,6 @@ public class HomeFragment extends Fragment {
         super.onResume();
         handler.postDelayed(runnable, 3000);
     }
+
+
 }

@@ -21,6 +21,14 @@ import java.util.List;
 
 public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapter.MovieShowingminViewHolder> {
     private List<MovieSummary> mListMove;
+    private OnMovieClickListener listener;
+    // Constructor nhận listener
+    public MovieShowingAdapter(OnMovieClickListener listener) {
+        this.listener = listener;
+    }
+
+    public MovieShowingAdapter() {
+    }
 
     public void setData(List<MovieSummary> list){
         this.mListMove = list;
@@ -65,6 +73,17 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
         // Hiển thị thể loại dưới dạng "Hành động, Khoa học viễn tưởng"
         holder.txt_genre.setText(TextUtils.join(", ", genreNames));
 
+        // Đặt sự kiện click
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                Log.d("MovieAdapter", "Clicked on: " + movieSummary.getMovie().getTitle());
+                listener.onMovieClick(movieSummary);
+            } else {
+                Log.e("MovieAdapter", "Listener is null");
+            }
+        });
+
+
     }
 
     @Override
@@ -89,4 +108,8 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
             txt_rating = itemView.findViewById(R.id.txt_rating);
         }
     }
+    public interface OnMovieClickListener {
+        void onMovieClick(MovieSummary movieSummary);
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.example.template_project.model;
 
-public class MovieSummary {
+import java.io.Serializable;
+
+public class MovieSummary implements Serializable {
     private Movie movie;
     private double averageRating;
     private long totalReviews;
