@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MovieDetailFragment extends Fragment {
+    private MovieSummary movieSummary;
     private ImageView imgMovieDetail;
     private ImageButton btn_trailer;
     private TextView tvName, tvGenre, tvRating, tvTotalRating,tvDescription, tvScope, tvScopeDesc, tvDate, tvDuration, tvLang;
@@ -71,11 +72,30 @@ public class MovieDetailFragment extends Fragment {
 
         // Nhận dữ liệu từ arguments
         if (getArguments() != null) {
-            MovieSummary movieSummary = (MovieSummary) getArguments().getSerializable(ARG_MOVIE_SUMMARY);
+            movieSummary = (MovieSummary) getArguments().getSerializable(ARG_MOVIE_SUMMARY);
             if (movieSummary != null) {
                 displayMovieDetails(movieSummary);
             }
         }
+
+        btn_book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowtimeFragment showtimeFragment = new ShowtimeFragment();
+
+                // Tạo Bundle và truyền dữ liệu
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("MOVIE_DATA", movieSummary.getMovie());
+
+                showtimeFragment.setArguments(bundle);
+
+                // Chuyển Fragment
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, showtimeFragment) // ID của container chứa fragment
+                        .addToBackStack(null) // Cho phép quay lại fragment trước đó
+                        .commit();
+            }
+        });
 
         btn_trailer.setOnClickListener(new View.OnClickListener() {
             @Override
