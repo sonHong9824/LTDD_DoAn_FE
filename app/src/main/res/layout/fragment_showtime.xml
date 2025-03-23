@@ -2,9 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frag_showtime"
+    android:orientation="vertical"
     tools:context=".fragment.ShowtimeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:src="@drawable/back"
+        android:scaleType="centerCrop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"/>
     <ExpandableListView
         android:id="@+id/ex_showtime"
         android:layout_width="match_parent"
@@ -12,5 +25,14 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:scrollbars="none"/>
+    <TextView
+        android:id="@+id/tv_NoShowtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Không có suất chiếu nào!"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="25sp"
+        android:textColor="@color/black" />
 
 </LinearLayout>

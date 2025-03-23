@@ -6,15 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.template_project.R;
+import com.example.template_project.adapter.DateAdapter;
 import com.example.template_project.adapter.ExShowtimeAdapter;
 import com.example.template_project.model.Cinema;
+import com.example.template_project.model.DateItem;
 import com.example.template_project.model.Movie;
 import com.example.template_project.model.MovieSummary;
 import com.example.template_project.model.Showtime;
@@ -25,6 +31,8 @@ import com.example.template_project.retrofit.ShowtimeApi;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +47,9 @@ public class ShowtimeFragment extends Fragment {
     private List<Cinema> mListCinema;
     private Map<Cinema, List<Showtime>> mListShowtime;
     private ExShowtimeAdapter exShowtimeAdapter;
+    private DateAdapter dateAdapter;
+    private TextView tv_noShowtime;
+    private ImageButton btn_back;
 
 
     @Nullable
@@ -58,8 +69,23 @@ public class ShowtimeFragment extends Fragment {
             Log.e("ShowtimeFragment", "Arguments are NULL!");
         }
 
+        RecyclerView recyclerViewDates = view.findViewById(R.id.recyclerViewDates);
+        recyclerViewDates.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         expandableListView = view.findViewById(R.id.ex_showtime);
-        fetchShowtimes(); // Gọi fetchShowtimes() sau khi gán dữ liệu
+        tv_noShowtime = view.findViewById(R.id.tv_NoShowtime);
+        btn_back = view.findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+
+
+        List<DateItem> dateList = generateDateList();
+        dateAdapter = new DateAdapter(dateList, selectedDate -> {
+            fetchShowtimes(selectedDate); // Gọi API khi chọn ngày
+        });
+        recyclerViewDates.setAdapter(dateAdapter);
+
+
+
+//        fetchShowtimes(); // Gọi fetchShowtimes() sau khi gán dữ liệu
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -77,14 +103,28 @@ public class ShowtimeFragment extends Fragment {
         return view;
     }
 
-    private void fetchShowtimes() {
+    private List<DateItem> generateDateList() {
+        List<DateItem> dateList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+
+        for (int i = 0; i < 14; i++) {
+            Date date = calendar.getTime();
+            String apiDate = DateItem.formatDate(date, "yyyy-MM-dd"); // Format để gửi API
+            String displayDate = DateItem.formatDate(date, "EEE, dd/MM"); // Hiển thị: T2, 25/03
+
+            dateList.add(new DateItem(apiDate, displayDate));
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Tiến tới ngày tiếp theo
+        }
+
+        return dateList;
+    }
+    private void fetchShowtimes(String date) {
         if (movie == null) {
             Log.e("ShowtimeFragment", "fetchShowtimes: Movie is NULL!");
             return; // Không gọi API nếu movie null
         }
 
         String movieId = movie.getId();
-        String date = "2025-03-22";
 
         RetrofitService retrofitService = new RetrofitService();
         ShowtimeApi api = retrofitService.getRetrofit().create(ShowtimeApi.class);
@@ -93,6 +133,16 @@ public class ShowtimeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Showtime>> call, Response<List<Showtime>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    List<Showtime> showtimes = response.body();
+                    if (showtimes.isEmpty()) {
+                        tv_noShowtime.setVisibility(View.VISIBLE); // Hiển thị thông báo
+                        expandableListView.setVisibility(View.GONE);
+                        return;
+                    } else {
+                        tv_noShowtime.setVisibility(View.GONE);
+                        expandableListView.setVisibility(View.VISIBLE);
+                    }
+
                     if (mListShowtime == null) {
                         mListShowtime = new HashMap<>();
                     } else {
@@ -126,7 +176,6 @@ public class ShowtimeFragment extends Fragment {
                     Toast.makeText(getContext(), "Không có dữ liệu!", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<Showtime>> call, Throwable t) {
                 Log.e("API_ERROR", "Lỗi kết nối: " + t.getMessage());

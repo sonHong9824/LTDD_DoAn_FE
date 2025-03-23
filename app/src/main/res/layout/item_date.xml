@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <!-- Ngày trong tuần (Thứ, CN, T2...) -->
+    <TextView
+        android:id="@+id/tv_day_of_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CN"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <!-- Ngày tháng (dd/MM) -->
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24/03"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingTop="4dp"/>
+
+    <!-- Thanh highlight ngày đang chọn -->
+    <View
+        android:id="@+id/view_indicator"
+        android:layout_width="24dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#E4C30F0F"
+        android:visibility="gone"/>
+</LinearLayout>

@@ -34,7 +34,7 @@ import java.util.Locale;
 public class MovieDetailFragment extends Fragment {
     private MovieSummary movieSummary;
     private ImageView imgMovieDetail;
-    private ImageButton btn_trailer;
+    private ImageButton btn_trailer,  btn_back;
     private TextView tvName, tvGenre, tvRating, tvTotalRating,tvDescription, tvScope, tvScopeDesc, tvDate, tvDuration, tvLang;
     private Button btn_book;
     private String trailer_id, movieStatus;
@@ -68,6 +68,8 @@ public class MovieDetailFragment extends Fragment {
         tvLang = view.findViewById(R.id.tv_language);
         btn_trailer = view.findViewById(R.id.btn_trailer);
         btn_book = view.findViewById(R.id.btn_book);
+        btn_back = view.findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
 
         // Nhận dữ liệu từ arguments
@@ -125,9 +127,27 @@ public class MovieDetailFragment extends Fragment {
         tvDate.setText(formatDate(movieSummary.getMovie().getReleaseDate()));
         tvDuration.setText(tvDuration.getContext().getString(R.string.duration, movieSummary.getMovie().getDuration()));
         tvLang.setText(movieSummary.getMovie().getLanguage());
-        tvScope.setText(movieSummary.getMovie().getScope());
         trailer_id = movieSummary.getMovie().getTrailerUrl();
         movieStatus = movieSummary.getMovie().getStatus();
+
+        String scope = movieSummary.getMovie().getScope();
+        tvScope.setText(scope);
+
+        if (scope.equals("P")) {
+            tvScopeDesc.setText("Phim được phép phổ biến đến người xem ở mọi độ tuổi");
+        } else {
+            scope = scope.substring(0, scope.length() - 1);
+            tvScopeDesc.setText("Phim được phép phổ biến đến người xem từ đủ " + scope + " tuổi trở lên");
+        }
+
+        if (movieSummary.getTotalReviews() == 0){
+            tvRating.setVisibility(View.GONE);
+            tvTotalRating.setVisibility(View.GONE);
+        } else {
+            tvRating.setVisibility(View.VISIBLE);
+            tvTotalRating.setVisibility(View.VISIBLE);
+        }
+
 
         Log.d("MovieDetail", "Title: " + movieSummary.getMovie().getTitle());
         Log.d("MovieDetail", "Language: " + movieSummary.getMovie().getLanguage());

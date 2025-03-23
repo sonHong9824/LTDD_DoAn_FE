@@ -56,6 +56,7 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
         Log.d("MovieAdapter", "Image URL: " + movieSummary.getMovie().getPosterUrl());
 
         holder.txt_name.setText(movieSummary.getMovie().getTitle());
+        holder.txt_scope.setText(movieSummary.getMovie().getScope());
         Double rating = movieSummary.getAverageRating();
         Long totalReviews = movieSummary.getTotalReviews();
 
@@ -99,6 +100,7 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
         private TextView txt_name;
         private TextView txt_genre;
         private TextView txt_rating;
+        private TextView txt_scope;
 
         public MovieShowingminViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +108,7 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_genre = itemView.findViewById(R.id.txt_genre);
             txt_rating = itemView.findViewById(R.id.txt_rating);
+            txt_scope = itemView.findViewById(R.id.tv_scope_image);
         }
     }
     public interface OnMovieClickListener {
