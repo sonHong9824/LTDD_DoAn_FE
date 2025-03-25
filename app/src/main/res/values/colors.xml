@@ -5,4 +5,6 @@
     <color name="color1">#EF6767</color>
     <color name="indicator">#5C5D5E</color>
     <color name="lightGrey">#DFDAD9</color>
+    <color name="seat1">#FECBC8</color>
+    <color name="seat2">#E52F86</color>
 </resources>
