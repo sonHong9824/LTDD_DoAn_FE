@@ -15,4 +15,8 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.Seat" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/seat_selector</item>
+    </style>
 </resources>
