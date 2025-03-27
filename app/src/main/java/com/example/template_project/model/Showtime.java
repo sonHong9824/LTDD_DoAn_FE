@@ -1,8 +1,9 @@
 package com.example.template_project.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Showtime {
+public class Showtime implements Serializable {
     private String id;
     private Movie movie;
     private Cinema cinema;

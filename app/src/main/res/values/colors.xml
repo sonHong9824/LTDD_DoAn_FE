@@ -5,4 +5,13 @@
     <color name="color1">#EF6767</color>
     <color name="indicator">#5C5D5E</color>
     <color name="lightGrey">#DFDAD9</color>
+    <color name="seat1">#FECBC8</color>
+    <color name="seat2">#E52F86</color>
+    <color name="seat_selected">#E65E9F</color>
+    <color name="seat_default">#BC8AE0</color>
+    <color name="seat_vip_default">#F7C5C3</color>
+    <color name="seat_no">#E5E5E5</color>
+    <color name="vip_text_color">#F71B20</color>
+    <color name="default_text_color">#7439C7</color>
+    <color name="seat_pick">#E65E9F</color>
 </resources>

@@ -48,7 +48,7 @@ public class ShowtimeFragment extends Fragment {
     private Map<Cinema, List<Showtime>> mListShowtime;
     private ExShowtimeAdapter exShowtimeAdapter;
     private DateAdapter dateAdapter;
-    private TextView tv_noShowtime;
+    private TextView tv_noShowtime, tv_movie;
     private ImageButton btn_back;
 
 
@@ -73,9 +73,11 @@ public class ShowtimeFragment extends Fragment {
         recyclerViewDates.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         expandableListView = view.findViewById(R.id.ex_showtime);
         tv_noShowtime = view.findViewById(R.id.tv_NoShowtime);
-        btn_back = view.findViewById(R.id.btn_back);
+        btn_back = view.findViewById(R.id.btn_back_showtime);
         btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
+        tv_movie = view.findViewById(R.id.tv_movie_showtime);
+        tv_movie.setText(movie.getTitle());
 
         List<DateItem> dateList = generateDateList();
         dateAdapter = new DateAdapter(dateList, selectedDate -> {
@@ -84,22 +86,25 @@ public class ShowtimeFragment extends Fragment {
         recyclerViewDates.setAdapter(dateAdapter);
 
 
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            Cinema cinema = mListCinema.get(groupPosition);
+            Showtime showtime = mListShowtime.get(cinema).get(childPosition);
 
-//        fetchShowtimes(); // Gọi fetchShowtimes() sau khi gán dữ liệu
+            Toast.makeText(getContext(), "Suất chiếu: " + showtime.getShowtime() + " - Rạp: " + cinema.getName(), Toast.LENGTH_SHORT).show();
 
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Cinema cinema = mListCinema.get(groupPosition);
-                Showtime showtime = mListShowtime.get(cinema).get(childPosition);
+            SeatFragment seatFragment = new SeatFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("SHOWTIME_DATA", showtime);
+            seatFragment.setArguments(bundle);
 
-                // Hiển thị thông tin suất chiếu khi click
-                Toast.makeText(getContext(), "Suất chiếu: " + showtime.getShowtime() + " - Rạp: " + cinema.getName(), Toast.LENGTH_SHORT).show();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, seatFragment)
+                    .addToBackStack(null)
+                    .commit();
 
-                return true;
-            }
+            return true;
         });
-
         return view;
     }
 

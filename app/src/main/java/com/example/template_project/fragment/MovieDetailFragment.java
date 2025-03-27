@@ -1,6 +1,7 @@
 package com.example.template_project.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -71,7 +72,6 @@ public class MovieDetailFragment extends Fragment {
         btn_back = view.findViewById(R.id.btn_back);
         btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
-
         // Nhận dữ liệu từ arguments
         if (getArguments() != null) {
             movieSummary = (MovieSummary) getArguments().getSerializable(ARG_MOVIE_SUMMARY);
@@ -114,7 +114,6 @@ public class MovieDetailFragment extends Fragment {
         if (!"NOW_SHOWING".equals(movieStatus)) {
             btn_book.setVisibility(View.GONE);
         }
-
 
         return view;
     }
