@@ -1,4 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/seat_selected" android:state_selected="true"/>
-    <item android:drawable="@color/seat_vip_default"/>
+    <!-- Trạng thái được chọn -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/seat_selected"/> <!-- Màu khi được chọn -->
+            <corners android:radius="10dp"/> <!-- Bo góc -->
+        </shape>
+    </item>
+
+    <!-- Trạng thái mặc định -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/seat_vip_default"/> <!-- Màu mặc định -->
+            <corners android:radius="10dp"/> <!-- Bo góc -->
+        </shape>
+    </item>
 </selector>

@@ -58,6 +58,7 @@ public class SeatFragment extends Fragment {
             Log.e("SeatFragment", "Lỗi: Arguments NULL!");
         }
 
+
         tv_cinema = view.findViewById(R.id.tv_cinema_seat);
         tv_cinema.setText(showtime.getCinema().getName());
         btn_back = view.findViewById(R.id.btn_back_seat);
