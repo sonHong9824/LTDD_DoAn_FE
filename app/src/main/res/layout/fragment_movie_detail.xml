@@ -261,7 +261,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="20dp"
-        android:backgroundTint="#D82D8B"
+        android:background="@drawable/rounded_button"
         android:text="Mua vé"
         android:textColor="@android:color/white"
         android:textSize="22sp"
