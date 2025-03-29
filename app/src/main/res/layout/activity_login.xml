@@ -61,7 +61,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/edittext_bg"
@@ -80,7 +80,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextText2"
+                android:id="@+id/editPassword"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/edittext_bg"
@@ -91,7 +91,7 @@
 
             <!-- Quên mật khẩu -->
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/forgetText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -104,7 +104,7 @@
 
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
@@ -163,7 +163,9 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:padding="5dp"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_gravity="center"
                     android:scaleType="centerInside"
                     android:src="@drawable/google" />
 
@@ -171,7 +173,8 @@
                 <ImageView
                     android:id="@+id/imageViewGoogle"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
@@ -188,6 +191,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:layout_marginTop="4dp"
                     android:padding="5dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/facebook" />
@@ -196,7 +200,7 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/registerText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
