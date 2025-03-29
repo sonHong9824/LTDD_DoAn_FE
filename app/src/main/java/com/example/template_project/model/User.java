@@ -1,6 +1,8 @@
 package com.example.template_project.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String email;
     private String password;
@@ -32,6 +34,9 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public User() {
     }
 
     public User(String email) {

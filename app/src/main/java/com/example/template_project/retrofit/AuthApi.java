@@ -1,6 +1,7 @@
 package com.example.template_project.retrofit;
 
 import com.example.template_project.model.User;
+import com.example.template_project.response.MessageResponse;
 import com.example.template_project.response.UserResponse;
 
 import retrofit2.Call;
@@ -14,7 +15,7 @@ public interface AuthApi {
     @POST("/user/create")
     Call<UserResponse> register(@Body User user, @Query("otp") String otp);
     @POST("/user/send-otp")
-    Call<UserResponse> sendOtp(@Body User User);
+    Call<MessageResponse> sendOtp(@Body User User);
     @POST("/user/send-otp-forgot-pass")
     Call<UserResponse> sendOtpForgotPass(@Query("email") String email);
 }

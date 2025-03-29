@@ -12,9 +12,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.template_project.model.User;
+import com.example.template_project.response.MessageResponse;
 import com.example.template_project.response.UserResponse;
 import com.example.template_project.retrofit.AuthApi;
 import com.example.template_project.retrofit.RetrofitService;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,39 +59,47 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
 
-            sendOtp(email);
+            User user = new User();
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setName(name);
+
+            sendOtp(user);
         });
     }
-    private void sendOtp(String email) {
-        // Khởi tạo Retrofit
+    private void sendOtp(User user) {
         RetrofitService retrofitService = new RetrofitService();
-        AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
+        AuthApi userApi = retrofitService.getRetrofit().create(AuthApi.class);
+        userApi.sendOtp(user)
+                .enqueue(new Callback<MessageResponse>() {
+                    @Override
+                    public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                        String mess = response.body().getMessage();
+                        Toast.makeText(SignupActivity.this,mess,Toast.LENGTH_SHORT).show();
 
-        // Gửi OTP với request phù hợp
-        Call<UserResponse> call = authApi.sendOtp(new User(email));
-        call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(SignupActivity.this, "OTP đã được gửi!", Toast.LENGTH_SHORT).show();
+                        if(mess.equals("Đã gửi OTP")){
+                            Intent intent = new Intent(SignupActivity.this, OtpActivity.class);
+                            intent.putExtra("user", user); // Truyền User
+                            startActivity(intent);
+                        }
 
-                    // Chuyển sang OtpActivity và truyền dữ liệu
-                    Intent intent = new Intent(SignupActivity.this, OtpActivity.class);
-                    intent.putExtra("name", edtName.getText().toString().trim());
-                    intent.putExtra("email", email);
-                    intent.putExtra("password", edtPassword.getText().toString().trim());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SignupActivity.this, "Lỗi gửi OTP!", Toast.LENGTH_SHORT).show();
-                }
-            }
+                    }
 
-            @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-                Log.e("RetrofitError", "Lỗi kết nối: " + t.getMessage(), t);
-                Toast.makeText(SignupActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<MessageResponse> call, Throwable t) {
+                        String errorMessage;
+
+                        if (t instanceof IOException) {
+                            errorMessage = "Lỗi kết nối mạng! Vui lòng kiểm tra Internet.";
+                        } else {
+                            errorMessage = "Lỗi không xác định: " + t.getMessage();
+                        }
+
+                        Toast.makeText(SignupActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                        Logger.getLogger(SignupActivity.class.getName()).log(Level.SEVERE, "Lỗi xảy ra", t);
+
+                    }
+                });
     }
 
 }

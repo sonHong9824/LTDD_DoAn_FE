@@ -16,4 +16,10 @@ public class UserResponse {
     public String getMessage() {
         return message;
     }
+
+    public UserResponse(String name, String email, String message) {
+        this.name = name;
+        this.email = email;
+        this.message = message;
+    }
 }
