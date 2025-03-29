@@ -18,38 +18,54 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="702dp"
             android:layout_margin="16dp"
             android:background="@drawable/white_rounded_bg"
+            android:elevation="4dp"
             android:orientation="vertical"
             android:padding="24dp">
 
             <!-- Tên người dùng -->
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="170dp"
-                android:layout_height="123dp"
-                android:gravity="start"
-                android:text="Đăng ký tài khoản"
-                android:textColor="#E91E63"
-                android:textSize="34sp"
-                android:textStyle="bold"
-                tools:textStyle="bold" />
+            <ImageView
+                android:id="@+id/buttonBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/back" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="150dp"
+                    android:layout_height="166dp"
+                    android:gravity="start"
+                    android:text="Đăng ký tài khoản"
+                    android:textColor="#E91E63"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    tools:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="3dp"
+                    app:srcCompat="@drawable/ic_login_hero" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên người dùng"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -67,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -85,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mật khẩu"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -103,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Xác nhận mật khẩu"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -117,8 +133,9 @@
                 android:paddingHorizontal="16dp" />
 
             <!-- Nút Đăng ký -->
+
             <Button
-                android:id="@+id/buttonRegister"
+                android:id="@+id/buttonSignup"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/rounded_button"
@@ -128,11 +145,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
-
-        <View
-            android:id="@+id/view4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </LinearLayout>
 
