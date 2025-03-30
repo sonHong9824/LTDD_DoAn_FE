@@ -3,6 +3,7 @@ package com.example.template_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(com.google.android.material.R.style.Theme_AppCompat_Light_NoActionBar);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forget_password);
@@ -37,38 +39,50 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         btnSendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendOtp();
+                sendOtp();
             }
         });
     }
-//    private void sendOtp() {
-//        RetrofitService retrofitService = new RetrofitService();
-//        AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
-//
-//        String email = edtEmail.getText().toString().trim();
-//        if (email.isEmpty()) {
-//            Toast.makeText(this, "Vui lòng nhập email!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        retrofit2.Call<UserResponse> call = authApi.register(user, otp);
-//        call.enqueue(new Callback<UserResponse>() {
-//            @Override
-//            public void onResponse(retrofit2.Call<UserResponse> call, Response<UserResponse> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    Toast.makeText(OtpActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(OtpActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(OtpActivity.this, "OTP không đúng!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                Toast.makeText(OtpActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+    private void sendOtp() {
+        // Lấy email từ EditText
+        String email = edtEmail.getText().toString().trim();
+
+        // Kiểm tra nếu email rỗng
+        if (email.isEmpty()) {
+            showToast("Vui lòng nhập email!");
+            return;
+        }
+
+        // Khởi tạo Retrofit
+        RetrofitService retrofitService = new RetrofitService();
+        AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
+
+        // Gọi API gửi OTP
+        authApi.sendOtpForgotPass(email).enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String message = response.body().getMessage();
+                    showToast(message);
+
+                    if ("OTP đặt lại mật khẩu đã được gửi".equals(message)) {
+                        // Chuyển sang màn hình nhập OTP
+                        Intent intent = new Intent(ForgetPasswordActivity.this, OtpActivity.class);
+                        intent.putExtra("email", email);
+                        intent.putExtra("message", message);
+                        startActivity(intent);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                showToast("Lỗi kết nối: " + t.getMessage());
+            }
+        });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

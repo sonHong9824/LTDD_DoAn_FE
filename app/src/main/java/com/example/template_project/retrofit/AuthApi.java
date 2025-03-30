@@ -1,6 +1,7 @@
 package com.example.template_project.retrofit;
 
 import com.example.template_project.model.User;
+import com.example.template_project.request.VerifyUserRequest;
 import com.example.template_project.response.UserResponse;
 
 import retrofit2.Call;
@@ -17,4 +18,8 @@ public interface AuthApi {
     Call<UserResponse> sendOtp(@Body User User);
     @POST("/user/send-otp-forgot-pass")
     Call<UserResponse> sendOtpForgotPass(@Query("email") String email);
-}
+    @POST("/user/verify-forgot-password-otp")
+    Call<UserResponse> verifyForgotPassword(@Query("email") String email, @Query("otp") String otp);
+    @POST("/user/reset-password")
+    Call<UserResponse> resetPassword(@Body VerifyUserRequest request);
+    }

@@ -53,6 +53,4 @@ dependencies {
     implementation ("io.github.chaosleung:pinview:1.4.4")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }

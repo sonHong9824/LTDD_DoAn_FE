@@ -21,8 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
-    private EditText edtName, edtEmail,edtConfirmPassword, edtPassword;
+    private EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
     private Button btnSignup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,63 +31,77 @@ public class SignupActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
 
+        initViews();
+        setupListeners();
+    }
+
+    private void initViews() {
         edtName = findViewById(R.id.editTextUsername);
         edtEmail = findViewById(R.id.editTextEmail);
         edtPassword = findViewById(R.id.editTextPassword);
         edtConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btnSignup = findViewById(R.id.buttonSignup);
+    }
 
-        btnSignup.setOnClickListener(view -> {
+    private void setupListeners() {
+        btnSignup.setOnClickListener(v -> {
             String name = edtName.getText().toString().trim();
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
             String confirmPassword = edtConfirmPassword.getText().toString().trim();
 
-            // Kiểm tra nhập đầy đủ thông tin
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(SignupActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
-                return;
+            if (validateInputs(name, email, password, confirmPassword)) {
+                sendOtp(email, name, password);
             }
-
-            // Kiểm tra mật khẩu có khớp không
-            if (!password.equals(confirmPassword)) {
-                Toast.makeText(SignupActivity.this, "Mật khẩu xác nhận không khớp!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            sendOtp(email);
         });
     }
-    private void sendOtp(String email) {
-        // Khởi tạo Retrofit
+
+    private boolean validateInputs(String name, String email, String password, String confirmPassword) {
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            showToast("Vui lòng nhập đầy đủ thông tin!");
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            showToast("Mật khẩu xác nhận không khớp!");
+            return false;
+        }
+        return true;
+    }
+
+    private void sendOtp(String email, String name, String password) {
         RetrofitService retrofitService = new RetrofitService();
         AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
 
-        // Gửi OTP với request phù hợp
-        Call<UserResponse> call = authApi.sendOtp(new User(email));
-        call.enqueue(new Callback<UserResponse>() {
+        authApi.sendOtp(new User(email)).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(SignupActivity.this, "OTP đã được gửi!", Toast.LENGTH_SHORT).show();
-
-                    // Chuyển sang OtpActivity và truyền dữ liệu
-                    Intent intent = new Intent(SignupActivity.this, OtpActivity.class);
-                    intent.putExtra("name", edtName.getText().toString().trim());
-                    intent.putExtra("email", email);
-                    intent.putExtra("password", edtPassword.getText().toString().trim());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SignupActivity.this, "Lỗi gửi OTP!", Toast.LENGTH_SHORT).show();
+                    showToast(response.body().getMessage());
+                    String message = response.body().getMessage();
+                    if ("Đã gửi OTP".equals(message)) {
+                        navigateToOtpActivity(email, name, password, message);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e("RetrofitError", "Lỗi kết nối: " + t.getMessage(), t);
-                Toast.makeText(SignupActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                showToast("Lỗi kết nối: " + t.getMessage());
             }
         });
     }
 
+    private void navigateToOtpActivity(String email, String name, String password, String message) {
+        Intent intent = new Intent(SignupActivity.this, OtpActivity.class);
+        intent.putExtra("email", email);
+        intent.putExtra("name", name);
+        intent.putExtra("message", message);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
