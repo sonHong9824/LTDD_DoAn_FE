@@ -3,7 +3,6 @@ package com.example.template_project.SharedPreferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-// Hồ Nhựt Tân - 22110412
 public class PrefUser {
     Context context;
     public PrefUser(Context context) {
