@@ -14,4 +14,6 @@
     <color name="vip_text_color">#F71B20</color>
     <color name="default_text_color">#7439C7</color>
     <color name="seat_pick">#E65E9F</color>
+    <color name="seat_picked">#E5E5E5</color>
+    <color name="date">#CF2B88</color>
 </resources>

@@ -3,18 +3,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="8dp">
+    android:layout_margin="10dp"
+    android:gravity="center">
 
     <!-- Ngày trong tuần (Thứ, CN, T2...) -->
     <TextView
         android:id="@+id/tv_day_of_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="CN"
         android:textSize="14sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="#CF2B88"
+        android:textStyle="normal"
+        android:background="@drawable/data_selected_top"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:gravity="center"/>
 
     <!-- Ngày tháng (dd/MM) -->
@@ -24,10 +27,11 @@
         android:layout_height="wrap_content"
         android:text="24/03"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:background="@drawable/date_selected"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"
-        android:paddingTop="4dp"/>
+        android:padding="12dp"/>
 
     <!-- Thanh highlight ngày đang chọn -->
     <View

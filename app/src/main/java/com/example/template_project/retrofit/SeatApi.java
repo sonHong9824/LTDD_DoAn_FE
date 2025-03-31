@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface SeatApi {
     @GET("/seat/getByShowtime")
-    Call<List<BookedSeat>> getByShowtime(@Query("showtimeId") String showtimeId);
+    Call<List<String>> getByShowtime(@Query("showtimeId") String showtimeId);
 
     @POST("/seat/create")
     Call<BookedSeat> create(@Body SeatRequest seatRequest);

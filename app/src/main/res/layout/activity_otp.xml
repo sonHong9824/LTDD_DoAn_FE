@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp"
         android:gravity="center_horizontal">
 
         <!-- Nút Back -->
@@ -56,13 +55,15 @@
             android:cursorVisible="true"
             android:inputType="number"
             app:cursorColor="@color/black"
-            app:hideLineWhenFilled="true"
+            app:hideLineWhenFilled="false"
             app:itemCount="6"
             app:itemHeight="55dp"
-            app:itemRadius="8dp"
+            app:itemRadius="27.5dp"
             app:itemWidth="55dp"
-            app:lineColor="#E91E63"
-            app:lineWidth="2dp"
+            app:lineColor="#E9447C"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:lineWidth="4dp"
             android:layout_marginBottom="40dp"/>
 
         <!-- Nút Xác Thực -->
@@ -75,6 +76,7 @@
             android:text="Xác Thực"
             android:textColor="@color/white"
             android:textSize="18sp"
+            android:layout_marginHorizontal="30dp"
             app:backgroundTint="#E91E63" />
 
     </LinearLayout>

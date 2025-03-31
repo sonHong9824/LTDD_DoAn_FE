@@ -80,7 +80,7 @@ public class ShowtimeFragment extends Fragment {
         tv_movie.setText(movie.getTitle());
 
         List<DateItem> dateList = generateDateList();
-        dateAdapter = new DateAdapter(dateList, selectedDate -> {
+        dateAdapter = new DateAdapter(requireContext(), dateList, selectedDate -> {
             fetchShowtimes(selectedDate); // Gọi API khi chọn ngày
         });
         recyclerViewDates.setAdapter(dateAdapter);
