@@ -49,9 +49,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation (libs.material.v110)
-    implementation (libs.pinview)
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-    implementation (libs.okhttp)
-    implementation (libs.logging.interceptor)
+    implementation ("com.google.android.material:material:1.1.0")
+    implementation ("io.github.chaosleung:pinview:1.4.4")
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }

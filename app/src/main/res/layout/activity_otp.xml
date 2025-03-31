@@ -61,7 +61,7 @@
             app:itemHeight="55dp"
             app:itemRadius="8dp"
             app:itemWidth="55dp"
-            app:lineColor="@color/black"
+            app:lineColor="#E91E63"
             app:lineWidth="2dp"
             android:layout_marginBottom="40dp"/>
 

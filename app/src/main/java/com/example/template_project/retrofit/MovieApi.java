@@ -1,6 +1,5 @@
 package com.example.template_project.retrofit;
 
-import com.example.template_project.model.Movie;
 import com.example.template_project.model.MovieSummary;
 
 import java.util.List;
