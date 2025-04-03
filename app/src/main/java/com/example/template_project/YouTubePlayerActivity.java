@@ -34,10 +34,15 @@ public class YouTubePlayerActivity extends AppCompatActivity {
 
         // Cấu hình WebView
         WebSettings webSettings = youtubeWebView.getSettings();
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
         youtubeWebView.setWebViewClient(new WebViewClient());
+
+        youtubeWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        youtubeWebView.getSettings().setAllowFileAccessFromFileURLs(true);
 
         // Load video từ YouTube
         String videoUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&fs=1";

@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -24,9 +25,10 @@
             android:layout_height="match_parent"
             android:text="CGV HCM"
             android:gravity="center"
+            android:textColor="#2E3333"
             android:textStyle="bold"
             android:layout_marginStart="15dp"
-            android:textSize="22sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDates"

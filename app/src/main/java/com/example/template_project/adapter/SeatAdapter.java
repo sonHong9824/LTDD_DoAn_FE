@@ -25,7 +25,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
     private OnSeatSelectedListener listener;
     private List<Seat> selectedSeats = new ArrayList<>(); // Danh sách ghế đã chọn
     public interface OnSeatSelectedListener {
-        void onSeatSelected(int totalSeats, int totalPrice);
+        void onSeatSelected(int totalSeats, int totalPrice, List<Seat> selectedSeats);
     }
 
     public SeatAdapter(List<Seat> mListSeat, Context context, OnSeatSelectedListener listener) {
@@ -90,7 +90,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
 
             notifyItemChanged(position); // Cập nhật lại giao diện ghế
             if (listener != null) {
-                listener.onSeatSelected(selectedSeats.size(), totalPrice);
+                listener.onSeatSelected(selectedSeats.size(), totalPrice, new ArrayList<>(selectedSeats));
             }
         });
     }
