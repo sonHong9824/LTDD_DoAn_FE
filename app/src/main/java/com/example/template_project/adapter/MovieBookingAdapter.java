@@ -1,6 +1,5 @@
 package com.example.template_project.adapter;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,14 +21,18 @@ import java.util.List;
 
 public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapter.ViewHolder> {
     private List<MovieSummary> mListMove;
-
-    public MovieBookingAdapter(List<MovieSummary> mListMove) {
+    private OnMovieClickListener listener;
+    public interface OnMovieClickListener {
+        void onMovieClick(MovieSummary movieSummary);
+    }
+    public MovieBookingAdapter(List<MovieSummary> mListMove, OnMovieClickListener listener) {
         this.mListMove = mListMove;
+        this.listener = listener;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_movie_booking, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie_booking, parent,false);
         return new ViewHolder(view);
     }
 
@@ -59,15 +62,23 @@ public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapte
 
         String scope = movieSummary.getMovie().getScope();
         int drawableRes;
-        if ("16".equals(scope)) { 
+        if ("16+".equals(scope)) {
             drawableRes = R.drawable.anh16;
-        } else if ("18".equals(scope)) {
+        } else if ("18+".equals(scope)) {
             drawableRes = R.drawable.anh18;
         } else {
             drawableRes = R.drawable.error_img;
         }
 
         holder.imgScope.setImageResource(drawableRes);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onMovieClick(movieSummary);
+                }
+            }
+        });
     }
 
     @Override
