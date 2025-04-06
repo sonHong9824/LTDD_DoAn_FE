@@ -61,7 +61,7 @@ public class FoodFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         loadFood();
-        getBookedFoodList();
+
 
         return view;
     }
@@ -76,6 +76,12 @@ public class FoodFragment extends Fragment {
                     foodList = response.body();
                     foodAdapter = new FoodAdapter(getContext(), foodList);
                     recyclerView.setAdapter(foodAdapter);
+
+                    getBookedFoodList();
+                    for (int i = 0; i < foodList.size(); i++) {
+                        Log.d("FoodDebug", "Food " + i + ": name=" + foodList.get(i).getName() + ", imageUrl=" + foodList.get(i).getpictureUrl());
+                    }
+
                 }
             }
 

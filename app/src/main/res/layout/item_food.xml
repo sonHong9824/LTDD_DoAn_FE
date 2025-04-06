@@ -8,8 +8,9 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/img_food"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/combo1"/>
@@ -25,14 +26,22 @@
             android:id="@+id/tv_name_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:text="MY COMBO"/>
+        <TextView
+            android:id="@+id/tv_desc_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="2"
+            android:text="1 Bắp Ngọt 60oz + 1 Coke 32oz"/>
         <TextView
             android:id="@+id/tv_price_food"
             android:layout_marginVertical="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:text="95000đ" />
@@ -42,8 +51,8 @@
             android:orientation="horizontal">
             <ImageButton
                 android:id="@+id/btn_minus"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/minus"
                 android:background="@null"
                 android:layout_gravity="center"
@@ -54,7 +63,7 @@
                 android:layout_height="40dp"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="19sp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_gravity="center"
@@ -63,8 +72,8 @@
             <ImageButton
                 android:id="@+id/btn_add"
                 android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:background="@null"
                 android:src="@drawable/add"
                 android:scaleType="centerCrop"/>

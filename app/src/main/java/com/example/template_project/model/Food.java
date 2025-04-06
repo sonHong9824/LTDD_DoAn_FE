@@ -4,15 +4,15 @@ public class Food {
     private String id;
     private String name;
     private String price;
-    private String imageUrl;
-    private String desc;
+    private String pictureUrl;
+    private String description;
 
-    public String getDesc() {
-        return desc;
+    public String getdescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setdescription(String description) {
+        this.description = description;
     }
 
     public String getId() {
@@ -23,12 +23,24 @@ public class Food {
         this.id = id;
     }
 
-    public Food(String id, String name, String price, String imageUrl, String desc) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setpictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public Food(String id, String name, String price, String pictureUrl, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.imageUrl = imageUrl;
-        this.desc = desc;
+        this.pictureUrl = pictureUrl;
+        this.description = description;
     }
 
     public String getName() {
@@ -39,8 +51,8 @@ public class Food {
         return price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getpictureUrl() {
+        return pictureUrl;
     }
 }
 

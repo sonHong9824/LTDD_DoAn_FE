@@ -42,17 +42,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         Food food = foodList.get(position);
         holder.tvName.setText(food.getName());
         holder.tvPrice.setText(food.getPrice());
+        holder.tvDesc.setText(food.getdescription());
 
         // Lấy số lượng món ăn đã đặt
         int quantity = bookedFoodMap.containsKey(food.getId()) ? bookedFoodMap.get(food.getId()).getQuantity() : 0;
         holder.tvQuantity.setText(String.valueOf(quantity));
 
-        if (food.getImageUrl() == null || food.getImageUrl().trim().isEmpty()) {
+        if (food.getpictureUrl() == null || food.getpictureUrl().trim().isEmpty()) {
             Log.e("GlideError", "Lỗi: imageUrl bị null hoặc rỗng tại vị trí " + position);
             holder.imgFood.setImageResource(R.drawable.placeholder_img); // Hình mặc định nếu lỗi
         } else {
             Glide.with(holder.itemView.getContext())
-                    .load(food.getImageUrl())
+                    .load(food.getpictureUrl())
                     .placeholder(R.drawable.placeholder_img)
                     .error(R.drawable.error_img)
                     .into(holder.imgFood);
@@ -98,11 +99,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvPrice, tvQuantity;
+        TextView tvName, tvPrice, tvQuantity, tvDesc;
         ImageView imgFood;
         ImageButton btnMinus, btnAdd;
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvDesc = itemView.findViewById(R.id.tv_desc_food);
             tvName = itemView.findViewById(R.id.tv_name_food);
             tvPrice = itemView.findViewById(R.id.tv_price_food);
             tvQuantity = itemView.findViewById(R.id.tv_quantity);
