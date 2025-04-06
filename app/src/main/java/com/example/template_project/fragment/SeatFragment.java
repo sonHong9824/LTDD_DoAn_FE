@@ -39,7 +39,7 @@ public class SeatFragment extends Fragment {
     private Showtime showtime;
     private RecyclerView recyclerViewSeats;
     private SeatAdapter seatAdapter;
-    private List<Seat> mListSeat;
+    private List<Seat> mListSeat, selectedSeat;
     private List<String> mListSeatPicked;
     public interface OnSeatsLoadedListener {
         void onSeatsLoaded(List<Seat> seats);
@@ -82,8 +82,9 @@ public class SeatFragment extends Fragment {
 
         generateSeats(showtime.getId(), seats -> {
             mListSeat = seats;  // Gán lại danh sách ghế
-            seatAdapter = new SeatAdapter(mListSeat, getContext(), (totalSeats, totalPrice) -> {
+            seatAdapter = new SeatAdapter(mListSeat, getContext(), (totalSeats, totalPrice, selectedSeats) -> {
                 tv_total_seat.setText(totalSeats + " - " + totalPrice + "đ");
+                selectedSeat = selectedSeats;
             });
             recyclerViewSeats.setAdapter(seatAdapter);  // Cập nhật RecyclerView
             seatAdapter.notifyDataSetChanged();  // Cập nhật giao diện
@@ -102,6 +103,33 @@ public class SeatFragment extends Fragment {
         tv_lang_seat = view.findViewById(R.id.tv_language_seat);
         btn_next = view.findViewById(R.id.btn_next_seat);
         tv_total_seat = view.findViewById(R.id.tv_total_seat);
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectedSeat == null || selectedSeat.isEmpty()) {
+                    Toast.makeText(getContext(), "Vui lòng chọn ít nhất một ghế!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ArrayList<String> selectedSeatsList = new ArrayList<>();
+                for (Seat seat : selectedSeat) {
+                    selectedSeatsList.add(seat.getSeatName());
+                }
+                // Tạo FoodFragment và truyền dữ liệu
+                FoodFragment foodFragment = new FoodFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("SHOWTIME_DATA", showtime); // Truyền showtime
+                bundle.putStringArrayList("SELECTED_SEATS", selectedSeatsList); // Truyền danh sách ghế
+
+                foodFragment.setArguments(bundle);
+
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, foodFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         tv_scope.setText(showtime.getMovie().getScope());
         tv_movie_2.setText(showtime.getMovie().getTitle());

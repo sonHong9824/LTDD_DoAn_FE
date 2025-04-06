@@ -13,6 +13,7 @@
         android:id="@+id/tv_name_cinema"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:text="CGV Mỹ Tho"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"

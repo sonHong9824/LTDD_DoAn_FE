@@ -127,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/star"
                 android:drawablePadding="5dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:text="@string/rating"/>
             <TextView
@@ -169,6 +170,7 @@
                     android:layout_height="wrap_content"
                     android:text="09/08/2004"
                     android:textSize="15sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:gravity="center"/>
             </LinearLayout>
@@ -194,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="110 phút"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -220,6 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Phụ đề"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="center"/>
@@ -247,6 +251,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nội dung phim"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"/>
@@ -258,6 +263,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:textColor="@color/black"
                 android:justificationMode="inter_word"
                 android:lineSpacingExtra="4dp"
                 android:text="Âm Dương Lộ là bộ phim kinh dị hành trình đầu tiên của Việt Nam..."
@@ -275,6 +281,7 @@
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/rounded_button"
         android:text="Mua vé"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:layout_marginBottom="30dp"

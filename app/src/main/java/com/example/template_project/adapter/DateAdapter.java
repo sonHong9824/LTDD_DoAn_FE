@@ -40,8 +40,8 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
     @Override
     public void onBindViewHolder(@NonNull DateViewHolder holder, int position) {
         DateItem dateItem = dateList.get(position);
-        holder.tvDayOfWeek.setText(dateItem.getDisplayDate().split(",")[0]); // CN, T2, T3...
-        holder.tvDate.setText(dateItem.getDisplayDate().split(",")[1]); // 24/03
+        holder.tvDayOfWeek.setText(dateItem.getDisplayDate().split(",")[0]);
+        holder.tvDate.setText(dateItem.getDisplayDate().split(",")[1]);
 
         // Kiểm tra vị trí đang chọn bằng getAdapterPosition()
         boolean isSelected = (holder.getBindingAdapterPosition() == selectedPosition);
