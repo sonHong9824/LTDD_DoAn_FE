@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.template_project.MainActivity;
 import com.example.template_project.R;
 import com.example.template_project.adapter.CinemaAdapter;
 import com.example.template_project.adapter.MovieBookingAdapter;
@@ -50,7 +51,13 @@ public class MovieBookingFragment extends Fragment {
             @Override
             public void onResponse(Call<List<MovieSummary>> call, Response<List<MovieSummary>> response) {
                 movieSummaryList = response.body();
-                movieBookingAdapter = new MovieBookingAdapter(movieSummaryList);
+                movieBookingAdapter = new MovieBookingAdapter(movieSummaryList, new MovieBookingAdapter.OnMovieClickListener() {
+                    @Override
+                    public void onMovieClick(MovieSummary movieSummary) {
+                        MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieSummary);
+                        ((MainActivity) requireActivity()).replaceFragment(movieDetailFragment);
+                    }
+                });
                 recyclerView.setAdapter(movieBookingAdapter);
             }
 
