@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.template_project.MainActivity;
 import com.example.template_project.R;
-import com.example.template_project.adapter.CinemaAdapter;
 import com.example.template_project.adapter.MovieBookingAdapter;
-import com.example.template_project.adapter.MovieShowingAdapter;
-import com.example.template_project.model.Cinema;
 import com.example.template_project.model.MovieSummary;
 import com.example.template_project.retrofit.MovieApi;
 import com.example.template_project.retrofit.RetrofitService;
@@ -40,10 +37,10 @@ public class MovieBookingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_booking, container, false);
         recyclerView = view.findViewById(R.id.movieList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        loadMocvies();
+        loadMovies();
         return view;
     }
-    private void loadMocvies()
+    private void loadMovies()
     {
         RetrofitService retrofitService = new RetrofitService();
         MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);

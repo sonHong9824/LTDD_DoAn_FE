@@ -17,6 +17,7 @@ import com.example.template_project.adapter.CinemaAdapter;
 import com.example.template_project.model.Cinema;
 import com.example.template_project.retrofit.CinemaApi;
 import com.example.template_project.retrofit.RetrofitService;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.List;
 
@@ -24,9 +25,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CinemaFragment extends Fragment {
+public class CinemaBookingFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    String[] tinhThanhArray = {
+            "Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Đồng Nai",
+            "Hải Phòng", "Quảng Ninh", "Bà Rịa-Vũng Tàu", "Bình Định", "Bình Dương",
+            "Đắk Lắk", "Trà Vinh", "Yên Bái", "Vĩnh Long", "Kiên Giang",
+            "Hậu Giang", "Hà Tĩnh", "Phú Yên", "Đồng Tháp", "Bạc Liêu",
+            "Hưng Yên", "Khánh Hòa", "Kon Tum", "Lạng Sơn", "Nghệ An",
+            "Phú Thọ", "Quảng Ngãi", "Sóc Trăng", "Sơn La", "Tây Ninh",
+            "Thái Nguyên", "Tiền Giang"
+    };
 
     @Nullable
     @Override
@@ -34,7 +44,8 @@ public class CinemaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cinema_booking, container, false);
         recyclerView = view.findViewById(R.id.cinemaList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        MaterialSpinner spinerTinh = view.findViewById(R.id.spTinh);
+        spinerTinh.setItems((Object[]) tinhThanhArray);
         loadCinemas();
         return view;
     }

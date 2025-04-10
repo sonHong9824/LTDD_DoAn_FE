@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="77dp"
+    android:layout_height="82dp"
     android:background="@drawable/white_bg">
 
     <TextView
@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:paddingTop="2dp"
         android:text="Cinema Name"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -22,10 +23,11 @@
         android:id="@+id/txtCinemaLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="18dp"
         android:text="Location"
         android:textColor="@android:color/darker_gray"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/txtCinemaName"
         app:layout_constraintTop_toBottomOf="@+id/txtCinemaName" />
 
@@ -53,7 +55,7 @@
         android:id="@+id/imageView2"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -75,14 +77,14 @@
     </androidx.cardview.widget.CardView>
 
     <View
-        android:layout_width="386dp"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="19dp"
+        android:layout_width="360dp"
+        android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="4dp"
         android:background="#C2C2C2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/txtCinemaLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
