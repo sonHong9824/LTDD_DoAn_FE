@@ -26,6 +26,7 @@ import com.example.template_project.retrofit.CinemaApi;
 import com.example.template_project.retrofit.RetrofitService;
 import com.example.template_project.retrofit.SeatApi;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ public class SeatFragment extends Fragment {
     private SeatAdapter seatAdapter;
     private List<Seat> mListSeat, selectedSeat;
     private List<String> mListSeatPicked;
+    private int totalPriceSeat;
+    DecimalFormat decimalFormat = new DecimalFormat("#,### 'đ'");
+
     public interface OnSeatsLoadedListener {
         void onSeatsLoaded(List<Seat> seats);
     }
@@ -83,7 +87,8 @@ public class SeatFragment extends Fragment {
         generateSeats(showtime.getId(), seats -> {
             mListSeat = seats;  // Gán lại danh sách ghế
             seatAdapter = new SeatAdapter(mListSeat, getContext(), (totalSeats, totalPrice, selectedSeats) -> {
-                tv_total_seat.setText(totalSeats + " - " + totalPrice + "đ");
+                tv_total_seat.setText(decimalFormat.format(totalPrice));
+                totalPriceSeat = totalPrice;
                 selectedSeat = selectedSeats;
             });
             recyclerViewSeats.setAdapter(seatAdapter);  // Cập nhật RecyclerView
@@ -111,7 +116,6 @@ public class SeatFragment extends Fragment {
                     Toast.makeText(getContext(), "Vui lòng chọn ít nhất một ghế!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 ArrayList<String> selectedSeatsList = new ArrayList<>();
                 for (Seat seat : selectedSeat) {
                     selectedSeatsList.add(seat.getSeatName());
@@ -119,8 +123,9 @@ public class SeatFragment extends Fragment {
                 // Tạo FoodFragment và truyền dữ liệu
                 FoodFragment foodFragment = new FoodFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("SHOWTIME_DATA", showtime); // Truyền showtime
-                bundle.putStringArrayList("SELECTED_SEATS", selectedSeatsList); // Truyền danh sách ghế
+                bundle.putSerializable("SHOWTIME_DATA", showtime);
+                bundle.putStringArrayList("SELECTED_SEATS", selectedSeatsList);
+                bundle.putInt("PRICE_SEATS", totalPriceSeat);
 
                 foodFragment.setArguments(bundle);
 
@@ -145,7 +150,6 @@ public class SeatFragment extends Fragment {
 
         tv_showtime_seat.setText(formattedStart + " ~ " + formattedEnd);
 
-        // Định dạng ngày dd-MM-yyyy
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String showDate = showtime.getShowtime().toLocalDate().format(dateFormatter);
 

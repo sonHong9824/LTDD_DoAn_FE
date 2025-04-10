@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.template_project.R;
 import com.example.template_project.model.Seat;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 

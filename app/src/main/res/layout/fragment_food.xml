@@ -16,7 +16,7 @@
         android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
         <ImageButton
-            android:id="@+id/btn_back_seat"
+            android:id="@+id/btn_back_food"
             android:layout_marginStart="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:clipToPadding="false"
-        android:overScrollMode="always"
+        android:overScrollMode="never"
         />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_bot"
@@ -85,7 +85,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tổng cộng"
+            android:text="Tạm tính"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
