@@ -23,10 +23,19 @@ import com.example.template_project.adapter.BookedFoodAdapter;
 import com.example.template_project.model.BookedFood;
 import com.example.template_project.model.Food;
 import com.example.template_project.model.Showtime;
+import com.example.template_project.model.Ticket;
+import com.example.template_project.model.TicketRequest;
+import com.example.template_project.retrofit.RetrofitService;
+import com.example.template_project.retrofit.TicketApi;
 
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BookingFragment extends Fragment {
     private ImageView img_movie_booking;
@@ -47,6 +56,8 @@ public class BookingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review_booking, container, false);
+
+        String userId = "e5e01e8e-9e9d-42f8-bb4f-804350a342e6";
 
         tv_name_cinema_booking = view.findViewById(R.id.tv_name_cinema_booking);
         tv_movie_name = view.findViewById(R.id.tv_movie_name);
@@ -87,6 +98,41 @@ public class BookingFragment extends Fragment {
         rc_food_booking.setLayoutManager(layoutManager);
         rc_food_booking.setAdapter(adapter);
         displayBookingDetails();
+
+        List<TicketRequest.BookedFoodRequest> bookedFoodRequests = new ArrayList<>();
+        for (BookedFood bookedFood : bookedFoods) {
+            bookedFoodRequests.add(new TicketRequest.BookedFoodRequest(bookedFood.getId(), bookedFood.getQuantity()));
+        }
+        TicketRequest ticketRequest = new TicketRequest();
+        ticketRequest.setUserId(userId);
+        ticketRequest.setBookedFoods(bookedFoodRequests);
+        ticketRequest.setSeats(selectedSeats);
+        ticketRequest.setPrice(priceFood + priceSeat);
+        ticketRequest.setShowtimeId(showtime.getId());
+
+        btn_next_booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RetrofitService retrofitService = new RetrofitService();
+                TicketApi ticketApi = retrofitService.getRetrofit().create(TicketApi.class);
+                ticketApi.create(ticketRequest).enqueue(new Callback<Ticket>() {
+                    @Override
+                    public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Ticket ticket = response.body();
+                            Log.d("TICKET_CREATED", "Ticket ID: " + ticket.getId());
+                        } else {
+                            Log.e("TICKET_ERROR", "Lỗi response: " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Ticket> call, Throwable t) {
+                        Log.e("TICKET_API_FAIL", "Lỗi mạng hoặc server: " + t.getMessage());
+                    }
+                });
+            }
+        });
         return view;
     }
 

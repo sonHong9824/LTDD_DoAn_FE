@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class SeatRequest {
     private String showtime_id;
     private String seat;
-    private BigDecimal price;
 
     public String getShowtime_id() {
         return showtime_id;
@@ -23,20 +22,12 @@ public class SeatRequest {
         this.seat = seat;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public SeatRequest() {
     }
 
-    public SeatRequest(String showtime_id, String seat, BigDecimal price) {
+    public SeatRequest(String showtime_id, String seat) {
         this.showtime_id = showtime_id;
         this.seat = seat;
-        this.price = price;
     }
 }

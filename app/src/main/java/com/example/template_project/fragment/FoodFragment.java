@@ -43,12 +43,6 @@ public class FoodFragment extends Fragment {
     private ArrayList<Food> foodList = new ArrayList<>();
     private Showtime showtime;
     private ArrayList<String> selectedSeats;
-    DecimalFormat decimalFormat = new DecimalFormat("#,### 'đ'");
-
-    public interface OnTotalPriceChangedListener {
-        void onTotalPriceChanged(int totalPrice);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

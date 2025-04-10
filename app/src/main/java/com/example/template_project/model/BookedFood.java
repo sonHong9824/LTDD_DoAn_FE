@@ -5,6 +5,21 @@ import java.io.Serializable;
 public class BookedFood implements Serializable {
     private String id;
     private int quantity;
+    private Food food;
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+    public BookedFood(String id, int quantity, Food food) {
+        this.id = id;
+        this.quantity = quantity;
+        this.food = food;
+    }
 
     public String getId() {
         return id;
