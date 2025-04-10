@@ -1,6 +1,8 @@
 package com.example.template_project.model;
 
-public class BookedFood {
+import java.io.Serializable;
+
+public class BookedFood implements Serializable {
     private String id;
     private int quantity;
 

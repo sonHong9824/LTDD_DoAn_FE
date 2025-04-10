@@ -1,9 +1,11 @@
 package com.example.template_project.model;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     private String id;
     private String name;
-    private String price;
+    private int price;
     private String pictureUrl;
     private String description;
 
@@ -27,7 +29,7 @@ public class Food {
         this.name = name;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -35,7 +37,7 @@ public class Food {
         this.pictureUrl = pictureUrl;
     }
 
-    public Food(String id, String name, String price, String pictureUrl, String description) {
+    public Food(String id, String name, int price, String pictureUrl, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -47,7 +49,7 @@ public class Food {
         return name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 

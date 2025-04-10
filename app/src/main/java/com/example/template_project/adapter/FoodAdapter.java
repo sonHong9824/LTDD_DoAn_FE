@@ -17,17 +17,25 @@ import com.example.template_project.R;
 import com.example.template_project.model.BookedFood;
 import com.example.template_project.model.Food;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
+    private final OnTotalPriceChangedListener listener;
     private List<Food> foodList;
     private Context context;
     private Map<String, BookedFood> bookedFoodMap; // Lưu danh sách món đã đặt
-    public FoodAdapter(Context context, List<Food> foodList) {
+    public interface OnTotalPriceChangedListener {
+        void onTotalPriceChanged(int totalPrice);
+    }
+
+    public FoodAdapter(Context context, List<Food> foodList, OnTotalPriceChangedListener listener) {
         this.context = context;
         this.foodList = foodList;
+        this.listener = listener;
         this.bookedFoodMap = new HashMap<>();
     }
     @NonNull
@@ -41,7 +49,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         Food food = foodList.get(position);
         holder.tvName.setText(food.getName());
-        holder.tvPrice.setText(food.getPrice());
+        int price = food.getPrice();
+        String formatted = new DecimalFormat("#,### đ").format(price);
+        holder.tvPrice.setText(formatted);
+
         holder.tvDesc.setText(food.getdescription());
 
         // Lấy số lượng món ăn đã đặt
@@ -64,6 +75,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             holder.btnMinus.setVisibility(View.VISIBLE);
         }
 
+
+
         // Xử lý nút tăng số lượng
         holder.btnAdd.setOnClickListener(v -> {
             if (!bookedFoodMap.containsKey(food.getId())) {
@@ -72,6 +85,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                 bookedFoodMap.get(food.getId()).increaseQuantity();
             }
             notifyItemChanged(position);
+            notifyTotalPriceChanged();
         });
 
         // Xử lý nút giảm số lượng
@@ -83,6 +97,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                 }
             }
             notifyItemChanged(position);
+            notifyTotalPriceChanged();
         });
     }
     public Map<String, BookedFood> getBookedFoodMap() {
@@ -113,4 +128,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             btnAdd = itemView.findViewById(R.id.btn_add);
         }
     }
+    private void notifyTotalPriceChanged() {
+        if (listener != null) {
+            int totalPrice = 0;
+            for (BookedFood booked : bookedFoodMap.values()) {
+                for (Food foodi : foodList) {
+                    if (foodi.getId().equals(booked.getId())) {
+                        int price = (foodi.getPrice());
+                        totalPrice += price * booked.getQuantity();
+                    }
+                }
+            }
+            listener.onTotalPriceChanged(totalPrice);
+        }
+    }
+    public List<BookedFood> getBookedFoodList() {
+        return new ArrayList<>(bookedFoodMap.values());
+    }
+
 }

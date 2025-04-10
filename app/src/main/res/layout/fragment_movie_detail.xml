@@ -16,6 +16,7 @@
         android:layout_marginStart="10dp"
         android:src="@drawable/back"
         android:scaleType="centerCrop"
+        android:layout_marginVertical="5dp"
         android:background="@drawable/custom_btn_back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,6 +25,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_content"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/btn_back"

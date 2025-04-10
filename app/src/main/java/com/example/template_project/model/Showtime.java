@@ -2,6 +2,7 @@ package com.example.template_project.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Showtime implements Serializable {
     private String id;
@@ -59,5 +60,11 @@ public class Showtime implements Serializable {
         this.cinema = cinema;
         this.room = room;
         this.showtime = showtime;
+    }
+    public String getFormattedTimeRange() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String start = showtime.format(formatter);
+        String end = showtime.plusMinutes(movie.getDuration()).format(formatter);
+        return start + " ~ " + end;
     }
 }
