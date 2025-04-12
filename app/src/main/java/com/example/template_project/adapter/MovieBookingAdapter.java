@@ -56,7 +56,7 @@ public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapte
         for (Genre genre : genres) {
             genreNames.add(genre.getName()); // Lấy tên thể loại
         }
-        holder.txt_genre.setText(String.format("Khởi chiếu: %s", TextUtils.join(", ", genreNames)));
+        holder.txt_genre.setText(String.format("Thể loại: %s", TextUtils.join(", ", genreNames)));
         holder.txt_releaseDate.setText(String.format("Khởi chiếu: %s", movieSummary.getMovie().getReleaseDate()));
         holder.txt_duration.setText(String.format("Thời lượng: %s phút", movieSummary.getMovie().getDuration()));
 
@@ -96,7 +96,7 @@ public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgMoive = itemView.findViewById(R.id.imageMovieView);
+            imgMoive = itemView.findViewById(R.id.imageMovie);
             imgScope = itemView.findViewById(R.id.imageMovieScope);
             txt_title = itemView.findViewById(R.id.txtMovieTitle);
             txt_releaseDate = itemView.findViewById(R.id.txtMovieReleaseDate);

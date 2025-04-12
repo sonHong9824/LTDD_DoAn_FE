@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.template_project.R;
 import com.example.template_project.model.Cinema;
-import com.example.template_project.model.MovieSummary;
 
 import java.util.List;
 
 public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder>{
     private List<Cinema> cinemaList;
     private OnCinemaClickListener listener;
+    public void setOnCinemaClickListener(OnCinemaClickListener listener) {
+        this.listener = listener;
+    }
     public interface OnCinemaClickListener {
-        void onMovieClick(Cinema cinema);
+        void onCinemaClick(Cinema cinema);
     }
     public CinemaAdapter(List<Cinema> cinemaList) {
         this.cinemaList = cinemaList;
@@ -29,7 +31,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_cinema_booking, parent, false);
+                .inflate(R.layout.item_cinema_booking, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,6 +40,14 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder
         Cinema cinema= cinemaList.get(position);
         holder.name.setText(cinema.getName());
         holder.location.setText(cinema.getLocation());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onCinemaClick(cinema);
+                }
+            }
+        });
     }
 
     @Override

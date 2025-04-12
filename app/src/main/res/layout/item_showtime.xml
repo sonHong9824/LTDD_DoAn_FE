@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/custom_showtime"
-        android:padding="13dp">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_showtimeStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
+            android:text="20:00"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="20:00"/>
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:text="~"
             android:textColor="#8A8A8A"
-            android:textStyle="bold"
             android:textSize="15dp"
-            android:text="~"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tv_showtimeEnd"
-            android:textColor="#8A8A8A"
-            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="21:30"/>
+            android:text="21:30"
+            android:textColor="#8A8A8A"
+            android:textSize="15dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

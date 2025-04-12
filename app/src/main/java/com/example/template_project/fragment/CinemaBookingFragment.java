@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.template_project.MainActivity;
 import com.example.template_project.R;
 import com.example.template_project.adapter.CinemaAdapter;
 import com.example.template_project.model.Cinema;
@@ -69,5 +70,12 @@ public class CinemaBookingFragment extends Fragment {
     private void populateListView(List<Cinema> cinemaList) {
         CinemaAdapter cinemaAdapter = new CinemaAdapter(cinemaList);
         recyclerView.setAdapter(cinemaAdapter);
+        cinemaAdapter.setOnCinemaClickListener(new CinemaAdapter.OnCinemaClickListener() {
+            @Override
+            public void onCinemaClick(Cinema cinema) {
+                MovieShowtimeFragment movieShowtimeFragment = MovieShowtimeFragment.newInstance(cinema);
+                ((MainActivity) requireActivity()).replaceFragment(movieShowtimeFragment);
+            }
+        });
     }
 }

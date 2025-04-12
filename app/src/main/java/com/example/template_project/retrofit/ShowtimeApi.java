@@ -1,7 +1,7 @@
 package com.example.template_project.retrofit;
 
+import com.example.template_project.model.MovieShowtime;
 import com.example.template_project.model.Showtime;
-import com.example.template_project.response.MovieShowtimeResponse;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public interface ShowtimeApi {
             @Query("movieId") String movieId,
             @Query("date") String date // YYYY-MM-DD
     );
-    @GET("/showtimes")
-    Call<List<MovieShowtimeResponse>> getShowtimesByCinemaAndDate(
+    @GET("/showtime")
+    Call<List<MovieShowtime>> getShowtimesByCinemaAndDate(
             @Query("cinemaId") String cinemaId,
             @Query("date") String date  // format yyyy-MM-dd
     );

@@ -67,12 +67,15 @@ public class LoginActivity extends AppCompatActivity {
         AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
         User user = new User(email, password);
 
-        authApi.login(user).enqueue(new Callback<UserResponse>() {
+        authApi.login(user).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    showToast("Chào " + response.body().getName());
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    User authUser = response.body();
+                    showToast("Chào " + authUser.getName());
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("USER_DATA", authUser);
+                    startActivity(intent);
                     finish();
                 } else {
                     showToast("Sai tài khoản hoặc mật khẩu");
@@ -80,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.e("LoginError", "Lỗi kết nối: " + t.getMessage());
                 showToast("Lỗi kết nối!");
             }

@@ -11,19 +11,26 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/user" />
+
     <TextView
-        android:layout_marginTop="8dp"
+        android:id="@+id/textUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="HongSon"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="son@gmail.com"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textColor="@color/lightGrey"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
