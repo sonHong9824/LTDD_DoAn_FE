@@ -27,9 +27,6 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
         this.listener = listener;
     }
 
-    public MovieShowingAdapter() {
-    }
-
     public void setData(List<MovieSummary> list){
         this.mListMove = list;
         notifyDataSetChanged();

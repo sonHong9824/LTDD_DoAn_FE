@@ -1,8 +1,9 @@
 package com.example.template_project.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cinema {
+public class Cinema implements Serializable {
     private String id;
     private String name;
     private String location;

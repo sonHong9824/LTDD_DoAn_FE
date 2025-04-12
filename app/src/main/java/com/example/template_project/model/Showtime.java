@@ -67,4 +67,25 @@ public class Showtime implements Serializable {
         String end = showtime.plusMinutes(movie.getDuration()).format(formatter);
         return start + " ~ " + end;
     }
+    public String showtimeEnd()
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Lấy thời gian bắt đầu
+        LocalDateTime showtimeStart = showtime;
+        String formattedStart = showtimeStart.format(formatter);
+
+        // Cộng thêm thời lượng phim
+        int duration = movie.getDuration();
+        LocalDateTime showtimeEnd = showtimeStart.plusMinutes(duration);
+        String formattedEnd = showtimeEnd.format(formatter);
+
+        return formattedEnd;
+    }
+    public String showtimeStart()
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedStart = showtime.format(formatter);
+        return formattedStart;
+    }
 }

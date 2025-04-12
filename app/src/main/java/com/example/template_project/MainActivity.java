@@ -2,8 +2,10 @@ package com.example.template_project;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.template_project.fragment.CinemaBookingFragment;
 import com.example.template_project.fragment.HomeFragment;
 import com.example.template_project.fragment.MovieBookingFragment;
+import com.example.template_project.model.User;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int mCurrentFragment = FRAGMENT_HOME;
 
     private DrawerLayout drawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        User user = (User) getIntent().getSerializableExtra("USER_DATA");
         NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvUserName = headerView.findViewById(R.id.textUserName);
+        tvUserName.setText(user.getName());
+
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragment(new HomeFragment());
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+
     }
 
     @Override

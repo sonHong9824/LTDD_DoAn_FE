@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 
 public interface AuthApi {
     @POST("/user/login")
-    Call<UserResponse> login(@Body User user);
+    Call<User> login(@Body User user);
     @POST("/user/create")
     Call<UserResponse> register(@Body User user, @Query("otp") String otp);
     @POST("/user/send-otp")
