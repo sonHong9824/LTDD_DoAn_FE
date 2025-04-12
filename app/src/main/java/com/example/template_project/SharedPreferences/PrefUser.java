@@ -4,24 +4,42 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PrefUser {
-    Context context;
+
+    private static final String PREF_NAME = "LoginDetails";
+    private static final String KEY_EMAIL = "username";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_NAME = "name";
+
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
+
     public PrefUser(Context context) {
-        this.context = context;
+        this.sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        this.editor = sharedPreferences.edit();
+    }
+    public void saveLoginDetails(String email, String password, String name) {
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_PASSWORD, password);
+        editor.putString(KEY_NAME, name);
+        editor.apply();
     }
 
-    public void saveloginDetails(String email, String password){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username", email);
-        editor.putString("password", password);
-        editor.commit();
+    public boolean isUserLoggedOut() {
+        return getEmail().isEmpty() || getPassword().isEmpty();
     }
 
-    public boolean isUserLogedOut() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        boolean isUsernameEmpty = sharedPreferences.getString("username", "").isEmpty();
-        boolean isPasswordEmpty = sharedPreferences.getString("password", "").isEmpty();
-        return isUsernameEmpty || isPasswordEmpty;
+    public String getName() {
+        return sharedPreferences.getString(KEY_NAME, "");
+    }
+    public String getEmail() {
+        return sharedPreferences.getString(KEY_EMAIL, "");
     }
 
+    public String getPassword() {
+        return sharedPreferences.getString(KEY_PASSWORD, "");
+    }
+    public void logout() {
+        editor.clear();
+        editor.apply();
+    }
 }

@@ -17,6 +17,10 @@
     <item android:title="@string/nav_account">
         <menu>
             <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ticket"
+                android:title="@string/nav_login" />
+            <item
                 android:id="@+id/nav_ticket"
                 android:icon="@drawable/ticket"
                 android:title="@string/nav_ticket" />

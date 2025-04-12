@@ -1,5 +1,6 @@
 package com.example.template_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.template_project.LoginActivity;
 import com.example.template_project.R;
+import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.adapter.DateAdapter;
 import com.example.template_project.adapter.ExShowtimeAdapter;
 import com.example.template_project.model.Cinema;
@@ -50,13 +53,14 @@ public class ShowtimeFragment extends Fragment {
     private DateAdapter dateAdapter;
     private TextView tv_noShowtime, tv_movie;
     private ImageButton btn_back;
+    private PrefUser prefUser;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_showtime, container, false);
-
+        prefUser = new PrefUser(getContext());
         // Nhận dữ liệu từ Bundle
         if (getArguments() != null) {
             movie = (Movie) getArguments().getSerializable("MOVIE_DATA"); // Gán dữ liệu cho biến toàn cục
@@ -68,6 +72,7 @@ public class ShowtimeFragment extends Fragment {
         } else {
             Log.e("ShowtimeFragment", "Arguments are NULL!");
         }
+
 
         RecyclerView recyclerViewDates = view.findViewById(R.id.recyclerViewDates);
         recyclerViewDates.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -89,20 +94,24 @@ public class ShowtimeFragment extends Fragment {
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             Cinema cinema = mListCinema.get(groupPosition);
             Showtime showtime = mListShowtime.get(cinema).get(childPosition);
+            if (prefUser.isUserLoggedOut()) {
+                Toast.makeText(getContext(), "Vui lòng đăng nhập để chọn suất chiếu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Suất chiếu: " + showtime.getShowtime() + " - Rạp: " + cinema.getName(), Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(getContext(), "Suất chiếu: " + showtime.getShowtime() + " - Rạp: " + cinema.getName(), Toast.LENGTH_SHORT).show();
+                SeatFragment seatFragment = new SeatFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("SHOWTIME_DATA", showtime);
+                seatFragment.setArguments(bundle);
 
-            SeatFragment seatFragment = new SeatFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("SHOWTIME_DATA", showtime);
-            seatFragment.setArguments(bundle);
-
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.content_frame, seatFragment)
-                    .addToBackStack(null)
-                    .commit();
-
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, seatFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
             return true;
         });
         return view;

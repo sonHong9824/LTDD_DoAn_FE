@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.template_project.R;
+import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.fragment.SeatFragment;
 import com.example.template_project.model.Showtime;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.ViewHolder>{
     List<Showtime> showtimes;
+
 
     public ShowtimeAdapter(List<Showtime> showtimes) {
         this.showtimes = showtimes;
@@ -45,9 +47,7 @@ public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
-
             Toast.makeText(context, "Suất chiếu: " + showtime.getShowtime(), Toast.LENGTH_SHORT).show();
-
             // Truyền dữ liệu vào SeatFragment
             SeatFragment seatFragment = new SeatFragment();
             Bundle bundle = new Bundle();

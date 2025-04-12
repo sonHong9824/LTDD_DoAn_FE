@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
     private Button btnLogin;
     private TextView tvForgotPassword, registerText;
+    private PrefUser prefUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-
+        prefUser = new PrefUser(this);
         initViews();
         setupListeners();
     }
@@ -73,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     User authUser = response.body();
                     showToast("Chào " + authUser.getName());
+                    prefUser.saveLoginDetails(authUser.getEmail(), authUser.getPassword(), authUser.getName());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("USER_DATA", authUser);
                     startActivity(intent);
                     finish();
                 } else {
@@ -92,9 +94,5 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void saveLoginDetails(String username, String password) {
-        new PrefUser(this).saveloginDetails(username, password);
     }
 }
