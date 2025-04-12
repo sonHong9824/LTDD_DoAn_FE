@@ -9,37 +9,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightGrey"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/grey_bg"
-            android:layout_margin="5dp">
+            android:background="@color/white">
 
 
             <EditText
                 android:id="@+id/editTextText5"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="5dp"
-                android:background="#00ffffff"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/grey_bg"
                 android:drawableStart="@drawable/search_icon"
                 android:ems="10"
                 android:hint="Tìm rạp phim..."
                 android:inputType="text"
+                android:paddingStart="8dp"
                 android:textColor="@color/indicator"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/spinner3"
+                app:layout_constraintEnd_toStartOf="@+id/spTinh"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_marginBottom="5dp" />
 
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="100dp"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spTinh"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,13 +55,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="22dp"
             android:background="@drawable/white_bg">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cinemaList_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

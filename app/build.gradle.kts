@@ -51,6 +51,6 @@ dependencies {
     implementation(libs.converter.gson)
     implementation ("com.google.android.material:material:1.1.0")
     implementation ("io.github.chaosleung:pinview:1.4.4")
-
+    implementation ("com.jaredrummler:material-spinner:1.3.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }

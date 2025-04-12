@@ -15,9 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.template_project.fragment.CinemaFragment;
+import com.example.template_project.fragment.CinemaBookingFragment;
 import com.example.template_project.fragment.HomeFragment;
 import com.example.template_project.fragment.MovieBookingFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawer_layout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             
         } else if (id == R.id.nav_vr) {
             if(mCurrentFragment != FRAGMENT_CINEMA){
-                replaceFragment(new CinemaFragment());
+                replaceFragment(new CinemaBookingFragment());
                 mCurrentFragment = FRAGMENT_CINEMA;
             }
         }
