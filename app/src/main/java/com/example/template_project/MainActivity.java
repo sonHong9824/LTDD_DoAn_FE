@@ -23,6 +23,8 @@ import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.fragment.CinemaBookingFragment;
 import com.example.template_project.fragment.HomeFragment;
 import com.example.template_project.fragment.MovieBookingFragment;
+import com.example.template_project.fragment.MyTicketFragment;
+import com.example.template_project.fragment.RePassFragment;
 import com.example.template_project.model.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -140,6 +142,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 android.util.Log.e("MainActivity", "Không nhận được USER_DATA từ Intent");
             }
             invalidateOptionsMenu();
+        } else if (id == R.id.nav_ticket) {
+            if(mCurrentFragment != FRAGMENT_TICKET){
+                replaceFragment(new MyTicketFragment());
+                mCurrentFragment = FRAGMENT_TICKET;
+            }
+        } else if (id == R.id.nav_repass) {
+            if(mCurrentFragment != FRAGMENT_REPASS){
+                replaceFragment(new RePassFragment());
+                mCurrentFragment = FRAGMENT_REPASS;
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.END);
