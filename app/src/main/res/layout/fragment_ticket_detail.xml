@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:background="@color/white">
+
+    <!-- Thanh tiêu đề cố định -->
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="3dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back_ticket_detail"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_btn_back"/>
+
+        <TextView
+            android:id="@+id/tv_cinema_seat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:gravity="center"
+            android:text="Thông tin vé xem phim"
+            android:textColor="#2E3333"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Phần nội dung cuộn được -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/ll_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Gói toàn bộ nội dung bên trong -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/custom_background_ve1">
+
+            <!-- Nội dung bạn đã viết -->
+            <ImageView
+                android:id="@+id/img_cgv"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="15dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_lang_ve"
+                android:src="@drawable/cgv_ed"/>
+
+            <TextView
+                android:id="@+id/tv_cinema_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CGV My thu"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_cgv"
+                android:layout_marginStart="30dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_movie_ve"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Địa đạo: Mặt trời tròn bóng tối"
+                app:layout_constraintTop_toBottomOf="@id/tv_cinema_ve"
+                app:layout_constraintStart_toStartOf="@id/tv_cinema_ve"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/tv_lang_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2D Phụ đề"
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_ve"
+                app:layout_constraintStart_toStartOf="@id/tv_movie_ve"
+                android:textSize="17sp"/>
+
+            <ImageView
+                android:id="@+id/img_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/banner3"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@id/tv_lang_ve"/>
+
+            <TextView
+                android:id="@+id/tv_ma_dat_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đặt vé:"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/img_backdrop"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/qr"
+                app:layout_constraintTop_toTopOf="@id/tv_ma_dat_ve"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_ma_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1265781"
+                app:layout_constraintTop_toBottomOf="@id/tv_ma_dat_ve"
+                app:layout_constraintStart_toStartOf="@id/tv_ma_dat_ve"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_thoi_gian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian:"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_ma_ve"
+                app:layout_constraintStart_toStartOf="@id/tv_ma_dat_ve"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_time_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19:00 - 22:00"
+                app:layout_constraintTop_toBottomOf="@id/tv_thoi_gian"
+                app:layout_constraintStart_toStartOf="@id/tv_ma_dat_ve"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_date_ve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09/09/2202"
+                app:layout_constraintTop_toBottomOf="@id/tv_time_ve"
+                app:layout_constraintStart_toStartOf="@id/tv_ma_dat_ve"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="220dp"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Đưa mã này cho nhân viên soát vé để nhận vé vào rạp"
+                android:layout_marginVertical="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_ve"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="20dp"
+                android:background="@drawable/custom_background_ve2"
+                app:layout_constraintTop_toBottomOf="@id/tv_1">
+
+                <TextView
+                    android:id="@+id/tv_phongchieu_ve"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phòng chiếu"
+                    android:layout_marginTop="10sp"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_room_ve"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cinema 2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_phongchieu_ve"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_soghe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số ghế"
+                    app:layout_constraintTop_toTopOf="@id/tv_phongchieu_ve"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_seat_ve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A2, A3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_soghe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="#DDDDDD"
+                    app:layout_constraintTop_toBottomOf="@id/tv_room_ve"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/line1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thức ăn kèm"
+                        android:textSize="18sp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_food_ve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="#DDDDDD"
+                    app:layout_constraintTop_toBottomOf="@id/ll_food"/>
+
+                <TextView
+                    android:id="@+id/tv_rapchieu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rạp chiếu"
+                    app:layout_constraintTop_toBottomOf="@id/line2"
+                    app:layout_constraintStart_toStartOf="@id/tv_phongchieu_ve"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_cinema_ve_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGV my tho"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rapchieu"
+                    app:layout_constraintStart_toStartOf="@id/tv_phongchieu_ve"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_cinema_desc_ve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tâng 3 trung tâm thương mại mại, số 1 dduyowngf cố 13 a phường"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cinema_ve_2"
+                    app:layout_constraintStart_toStartOf="@id/tv_phongchieu_ve"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
 package com.example.template_project.model;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Ticket {
+public class Ticket implements Serializable {
     private Long id;
     private List<BookedSeat> bookedSeat;
     private List<BookedFood> bookedFoods;
@@ -70,4 +72,11 @@ public class Ticket {
     }
 
     private Showtime showtime;
+    public String getSeatListString() {
+        return bookedSeat.stream()
+                .map(bs -> bs.getSeat())
+                .collect(Collectors.joining(", "));
+    }
+
+
 }

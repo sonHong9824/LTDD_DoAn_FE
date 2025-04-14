@@ -61,6 +61,11 @@ public class Showtime implements Serializable {
         this.room = room;
         this.showtime = showtime;
     }
+    public String getDateFormatted(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime date = showtime;
+        return showtime.format(formatter);
+    }
     public String getFormattedTimeRange() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String start = showtime.format(formatter);

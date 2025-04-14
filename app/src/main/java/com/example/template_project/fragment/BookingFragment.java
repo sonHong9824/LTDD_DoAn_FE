@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.template_project.R;
+import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.adapter.BookedFoodAdapter;
 import com.example.template_project.model.BookedFood;
 import com.example.template_project.model.Food;
@@ -50,14 +51,15 @@ public class BookingFragment extends Fragment {
     private ArrayList<String> selectedSeats;
     private ArrayList<Food> foods;
     private BookedFoodAdapter adapter;
+    private PrefUser prefUser;
     DecimalFormat decimalFormat = new DecimalFormat("#,### 'đ'");
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review_booking, container, false);
-
-        String userId = "e5e01e8e-9e9d-42f8-bb4f-804350a342e6";
+        prefUser = new PrefUser(requireContext());
+        String userId = prefUser.getId();
 
         tv_name_cinema_booking = view.findViewById(R.id.tv_name_cinema_booking);
         tv_movie_name = view.findViewById(R.id.tv_movie_name);
@@ -105,6 +107,7 @@ public class BookingFragment extends Fragment {
         }
         TicketRequest ticketRequest = new TicketRequest();
         ticketRequest.setUserId(userId);
+        Log.d("userid:", userId);
         ticketRequest.setBookedFoods(bookedFoodRequests);
         ticketRequest.setSeats(selectedSeats);
         ticketRequest.setPrice(priceFood + priceSeat);
@@ -113,6 +116,22 @@ public class BookingFragment extends Fragment {
         btn_next_booking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("DEBUG_TICKET", "Showtime ID: " + ticketRequest.getShowtimeId());
+                Log.d("DEBUG_TICKET", "User ID: " + ticketRequest.getUserId());
+                Log.d("DEBUG_TICKET", "Price: " + ticketRequest.getPrice());
+                Log.d("DEBUG_TICKET", "Seats: " + ticketRequest.getSeats().toString());
+//                PaymentFragment paymentFragment = new PaymentFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("AMOUNT", String.valueOf(ticketRequest.getPrice()));
+//
+//                paymentFragment.setArguments(bundle);
+//
+//                requireActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.content_frame, paymentFragment)
+//                        .addToBackStack(null)
+//                        .commit();
+
+
                 RetrofitService retrofitService = new RetrofitService();
                 TicketApi ticketApi = retrofitService.getRetrofit().create(TicketApi.class);
                 ticketApi.create(ticketRequest).enqueue(new Callback<Ticket>() {
@@ -137,8 +156,8 @@ public class BookingFragment extends Fragment {
     }
 
     private void displayBookingDetails() {
-        String nameUser = "son ne";
-        String emailUser = "s98@gmail.com";
+        String nameUser = prefUser.getName();
+        String emailUser = prefUser.getEmail();
 
         tv_name_cinema_booking.setText(showtime.getCinema().getName());
         tv_movie_name.setText(showtime.getMovie().getTitle());

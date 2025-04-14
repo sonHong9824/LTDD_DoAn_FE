@@ -9,8 +9,7 @@ public class BookedSeat implements Serializable {
     public BookedSeat() {
     }
 
-    public BookedSeat(BigDecimal price, String seat, Showtime showtime, String id) {
-        this.price = price;
+    public BookedSeat(String seat, Showtime showtime, String id) {
         this.seat = seat;
         this.showtime = showtime;
         this.id = id;
@@ -18,13 +17,7 @@ public class BookedSeat implements Serializable {
 
     private Showtime showtime;
 
-    public BigDecimal getPrice() {
-        return price;
-    }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public String getSeat() {
         return seat;
@@ -51,5 +44,4 @@ public class BookedSeat implements Serializable {
     }
 
     private String seat;
-    private BigDecimal price;
 }
