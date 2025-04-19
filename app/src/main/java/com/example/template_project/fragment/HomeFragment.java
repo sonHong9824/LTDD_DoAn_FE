@@ -52,9 +52,11 @@ public class HomeFragment extends Fragment {
 
     private CircleIndicator3 circleIndicator3;
     private List<Banner> mListBanner;
-    private List<Movie> mListFeature;
+    private List<MovieSummary> mListFeature;
     private List<Movie> mListMovieShowing;
     private Handler handler = new Handler();
+    private FeatureAdapter featureAdapter;
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -71,11 +73,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // Ánh xạ View
         viewPager2 = mView.findViewById(R.id.view_pager_banner);
         mViewPage2_feature = mView.findViewById(R.id.view_pager_feature);
         circleIndicator3 = mView.findViewById(R.id.circle_indicator_banner);
         rcvCatagory = mView.findViewById(R.id.rcv_catagory);
-//        catagoryAdapter = new CatagoryAdapter(requireContext());
+
+        // Adapter cho category
         catagoryAdapter = new CatagoryAdapter(requireContext(), new MovieShowingAdapter.OnMovieClickListener() {
             @Override
             public void onMovieClick(MovieSummary movieSummary) {
@@ -84,65 +88,33 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
-        rcvCatagory.setLayoutManager(linearLayoutManager);
-
-        mListBanner = getListBanner();
-        mListFeature = getListFeature();
-
-        FeatureAdapter featureAdapter = new FeatureAdapter(mListFeature);
-        mViewPage2_feature.setAdapter(featureAdapter);
-
+        rcvCatagory.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
         rcvCatagory.setAdapter(catagoryAdapter);
-        getListCatagory(); // Gọi API sau khi adapter được gắn
+        getListCatagory();
 
+        // Cấu hình ViewPager feature
         mViewPage2_feature.setOffscreenPageLimit(3);
         mViewPage2_feature.setClipChildren(false);
         mViewPage2_feature.setClipToPadding(false);
-        mViewPage2_feature.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-        mViewPage2_feature.setClipChildren(false);
         ViewGroup viewGroup = (ViewGroup) mViewPage2_feature.getChildAt(0);
         if (viewGroup instanceof RecyclerView) {
             viewGroup.setClipChildren(false);
             viewGroup.setClipToPadding(false);
         }
 
-
-        mViewPage2_feature.setCurrentItem(1, false);
-        // Lắng nghe sự kiện cuộn
-        mViewPage2_feature.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                int itemCount = featureAdapter.getItemCount();
-                if (itemCount < 3) return; // Đảm bảo có đủ item để tránh lỗi
-
-                mViewPage2_feature.post(() -> {
-                    if (position == 0) {
-                        mViewPage2_feature.setCurrentItem(itemCount - 2, false); // Nhảy về item trước cuối
-                    } else if (position == itemCount - 1) {
-                        mViewPage2_feature.setCurrentItem(1, false); // Nhảy về item thứ 1
-                    }
-                });
-            }
-        });
-
+        // Transformer cho hiệu ứng scale
         CompositePageTransformer transformer = new CompositePageTransformer();
-        transformer.addTransformer(new MarginPageTransformer(40)); // Tăng margin giữa các item
-        transformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float scale = 0.85f + (1 - Math.abs(position)) * 0.1f; // Giảm scale nhỏ hơn
-                page.setScaleX(scale);
-                page.setScaleY(scale);
-
-                // Giữ vị trí trung tâm khi cuộn
-                page.setPivotX(page.getWidth() * 0.5f);
-            }
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer((page, position) -> {
+            float scale = 0.85f + (1 - Math.abs(position)) * 0.1f;
+            page.setScaleX(scale);
+            page.setScaleY(scale);
+            page.setPivotX(page.getWidth() * 0.5f);
         });
         mViewPage2_feature.setPageTransformer(transformer);
 
-
+        // Cấu hình banner
+        mListBanner = getListBanner();
         BannerAdapter bannerAdapter = new BannerAdapter(mListBanner);
         viewPager2.setAdapter(bannerAdapter);
         circleIndicator3.setViewPager(viewPager2);
@@ -154,14 +126,17 @@ public class HomeFragment extends Fragment {
                 if (position == mListBanner.size() - 1) {
                     viewPager2.postDelayed(() -> viewPager2.setCurrentItem(0, false), 300);
                 }
-                 handler.removeCallbacks(runnable);
-                 handler.postDelayed(runnable, 3000);
+                handler.removeCallbacks(runnable);
+                handler.postDelayed(runnable, 3000);
             }
         });
 
+        // Gọi API phim nổi bật
+        fetchFeatureMovies();
 
         return mView;
     }
+
 
     private void getListCatagory() {
         RetrofitService retrofitService = new RetrofitService();
@@ -214,47 +189,60 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void fetchFeatureMovies() {
+        RetrofitService retrofitService = new RetrofitService();
+        MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);
 
+        movieApi.getFeatureMovies().enqueue(new Callback<List<MovieSummary>>() {
+            @Override
+            public void onResponse(Call<List<MovieSummary>> call, Response<List<MovieSummary>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<MovieSummary> originalList = response.body();
 
-    private  List<Movie> getListFeature(){
-        List<Movie> list = new ArrayList<>();
-        list.add(new Movie(
-                "1",
-                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
-                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
-                140,
-                "2025-07-04",
-                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
-                "https://www.youtube.com/watch?v=abcd1234",
-                "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
-        ));
+                    if (originalList.size() >= 1) {
+                        List<MovieSummary> loopedList = new ArrayList<>();
+                        // Thêm phần tử cuối lên đầu
+                        loopedList.add(originalList.get(originalList.size() - 1));
+                        // Thêm danh sách chính
+                        loopedList.addAll(originalList);
+                        // Thêm phần tử đầu xuống cuối
+                        loopedList.add(originalList.get(0));
 
+                        featureAdapter = new FeatureAdapter(loopedList);
+                        mViewPage2_feature.setAdapter(featureAdapter);
+                        mViewPage2_feature.setCurrentItem(1, false); // Bắt đầu từ item chính
 
-        list.add(new Movie(
-                "1",
-                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
-                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
-                140,
-                "2025-07-04",
-                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
-                "https://www.youtube.com/watch?v=abcd1234",
-                "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
-        ));
-        list.add(new Movie(
-                "1",
-                "CAPTAIN AMERICA: THẾ GIỚI MỚI",
-                "Bộ phim về Captain America sau khi Steve Rogers giải nghệ.",
-                140,
-                "2025-07-04",
-                "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_th_gi_i_m_i_-_official_poster.jpg",
-                "https://www.youtube.com/watch?v=abcd1234",
-                "NOW_SHOWING",
-                Arrays.asList(new Genre("1", "Hành động"), new Genre("2", "Khoa học viễn tưởng")),"18","Tiếng Anh - Phụ đề Tiếng Việt"
-        ));
-        return list;
+                        setupFeatureViewPagerLooping(); // Đăng ký listener sau khi adapter đã set
+                    }
+                } else {
+                    Log.e("API_RESPONSE", "Feature Movies Failed - Code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MovieSummary>> call, Throwable t) {
+                Log.e("API_ERROR", "Feature Movies Error: " + t.getMessage());
+            }
+        });
     }
+    private void setupFeatureViewPagerLooping() {
+        mViewPage2_feature.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                if (featureAdapter == null || featureAdapter.getItemCount() < 3) return;
+
+                mViewPage2_feature.post(() -> {
+                    int itemCount = featureAdapter.getItemCount();
+                    if (position == 0) {
+                        mViewPage2_feature.setCurrentItem(itemCount - 2, false);
+                    } else if (position == itemCount - 1) {
+                        mViewPage2_feature.setCurrentItem(1, false);
+                    }
+                });
+            }
+        });
+    }
+
 
     private List<Banner> getListBanner(){
         List<Banner> list = new ArrayList<>();

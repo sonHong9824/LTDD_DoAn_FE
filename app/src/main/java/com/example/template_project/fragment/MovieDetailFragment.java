@@ -22,8 +22,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.template_project.R;
 import com.example.template_project.YouTubePlayerActivity;
+import com.example.template_project.model.FeatureMovie;
 import com.example.template_project.model.Genre;
 import com.example.template_project.model.MovieSummary;
+import com.example.template_project.retrofit.MovieApi;
+import com.example.template_project.retrofit.RetrofitService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +34,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieDetailFragment extends Fragment {
     private MovieSummary movieSummary;
@@ -79,6 +86,26 @@ public class MovieDetailFragment extends Fragment {
                 displayMovieDetails(movieSummary);
             }
         }
+
+        RetrofitService retrofitService = new RetrofitService();
+        MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);
+        movieApi.increase(movieSummary.getMovie().getId()).enqueue(new Callback<FeatureMovie>() {
+            @Override
+            public void onResponse(Call<FeatureMovie> call, Response<FeatureMovie> response) {
+                if (response.isSuccessful()) {
+                    FeatureMovie updatedFeatureMovie = response.body();
+                    // Xử lý khi API trả về thành công
+                    Log.d("API", "Phim đã được tăng điểm: " + updatedFeatureMovie.getScore());
+                } else {
+                    Log.e("API", "Lỗi khi tăng điểm phim: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeatureMovie> call, Throwable t) {
+                Log.e("API", "Lỗi kết nối: " + t.getMessage());
+            }
+        });
 
         btn_book.setOnClickListener(new View.OnClickListener() {
             @Override

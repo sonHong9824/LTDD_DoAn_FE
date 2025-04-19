@@ -7,10 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:background="#FFFFFF">
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:paddingHorizontal="3dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btn_back_login"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <TextView
+            android:id="@+id/tv_cinema_seat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Đăng nhập"
+            android:textColor="#2E3333"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scroll_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,6 +1,9 @@
 package com.example.template_project.adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.template_project.LoginActivity;
 import com.example.template_project.R;
 import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.fragment.SeatFragment;
@@ -23,6 +27,8 @@ import java.util.List;
 public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.ViewHolder>{
     List<Showtime> showtimes;
 
+    private PrefUser prefUser;
+
 
     public ShowtimeAdapter(List<Showtime> showtimes) {
         this.showtimes = showtimes;
@@ -32,6 +38,8 @@ public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_showtime, parent,false);
+        prefUser = new PrefUser(view.getContext());
+
         return new ViewHolder(view);
     }
 
@@ -47,7 +55,15 @@ public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
+
+            if (prefUser.isUserLoggedOut()) {
+                Toast.makeText(context, "Vui lòng đăng nhập để chọn suất chiếu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
+                return; // Dừng lại nếu chưa đăng nhập
+            }
             Toast.makeText(context, "Suất chiếu: " + showtime.getShowtime(), Toast.LENGTH_SHORT).show();
+
             // Truyền dữ liệu vào SeatFragment
             SeatFragment seatFragment = new SeatFragment();
             Bundle bundle = new Bundle();

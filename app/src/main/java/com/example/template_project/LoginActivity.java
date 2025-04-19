@@ -3,9 +3,11 @@ package com.example.template_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
     private Button btnLogin;
+    private ImageButton btnback;
     private TextView tvForgotPassword, registerText;
     private PrefUser prefUser;
 
@@ -46,9 +49,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.buttonLogin);
         tvForgotPassword = findViewById(R.id.forgetText);
         registerText = findViewById(R.id.registerText);
+        btnback = findViewById(R.id.btn_back_login);
     }
 
     private void setupListeners() {
+
         btnLogin.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
@@ -59,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(email, password);
             }
         });
-
+        btnback.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
         registerText.setOnClickListener(v -> startActivity(new Intent(this, SignupActivity.class)));
         tvForgotPassword.setOnClickListener(v -> startActivity(new Intent(this, ForgetPasswordActivity.class)));
     }

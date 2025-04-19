@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.template_project.R;
 import com.example.template_project.model.Movie;
+import com.example.template_project.model.MovieSummary;
 
 import java.util.List;
 
 public class FeatureAdapter extends RecyclerView.Adapter<FeatureAdapter.FeatureViewHolder> {
 
-    private final List<Movie> mListMovie;
+    private final List<MovieSummary> mListMovie;
 
-    public FeatureAdapter(List<Movie> mListMovie) {
+    public FeatureAdapter(List<MovieSummary> mListMovie) {
         this.mListMovie = mListMovie;
     }
 
@@ -33,17 +34,20 @@ public class FeatureAdapter extends RecyclerView.Adapter<FeatureAdapter.FeatureV
 
     @Override
     public void onBindViewHolder(@NonNull FeatureViewHolder holder, int position) {
-        Movie movie = mListMovie.get(position);
+        MovieSummary movie = mListMovie.get(position);
         if(movie == null){
             return;
         }
         Glide.with(holder.img_feature.getContext())
-                .load(movie.getPosterUrl()) // URL của ảnh
+                .load(movie.getMovie().getPosterUrl()) // URL của ảnh
                 .placeholder(R.drawable.placeholder_img) // Ảnh mặc định khi tải
                 .error(R.drawable.error_img) // Ảnh lỗi nếu URL sai
                 .into(holder.img_feature); // Đưa vào ImageView
-        Log.d("MovieAdapter", "Image URL: " + movie.getPosterUrl());
-        holder.txt_title.setText(movie.getTitle());
+        Log.d("MovieAdapter", "Image URL: " + movie.getMovie().getPosterUrl());
+        holder.txt_title.setText(movie.getMovie().getTitle());
+
+        holder.itemView.setScaleX(0.8f);  // Thu nhỏ theo chiều ngang
+        holder.itemView.setScaleY(0.8f);
 
     }
 

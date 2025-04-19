@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,10 +24,12 @@ import com.example.template_project.R;
 import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.adapter.BookedFoodAdapter;
 import com.example.template_project.model.BookedFood;
+import com.example.template_project.model.FeatureMovie;
 import com.example.template_project.model.Food;
 import com.example.template_project.model.Showtime;
 import com.example.template_project.model.Ticket;
 import com.example.template_project.model.TicketRequest;
+import com.example.template_project.retrofit.MovieApi;
 import com.example.template_project.retrofit.RetrofitService;
 import com.example.template_project.retrofit.TicketApi;
 
@@ -140,6 +144,18 @@ public class BookingFragment extends Fragment {
                         if (response.isSuccessful() && response.body() != null) {
                             Ticket ticket = response.body();
                             Log.d("TICKET_CREATED", "Ticket ID: " + ticket.getId());
+                            new AlertDialog.Builder(requireContext())
+                                    .setTitle("Đặt vé thành công")
+                                    .setMessage("Bạn đã đặt vé thành công! Cảm ơn bạn đã sử dụng dịch vụ.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        HomeFragment homeFragment = new HomeFragment();
+                                        requireActivity().getSupportFragmentManager()
+                                                .beginTransaction()
+                                                .replace(R.id.content_frame, homeFragment)
+                                                .commit();
+                                    })
+                                    .show();
                         } else {
                             Log.e("TICKET_ERROR", "Lỗi response: " + response.code());
                         }

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +25,8 @@ import retrofit2.Response;
 public class SignupActivity extends AppCompatActivity {
     private EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
     private Button btnSignup;
+    private ImageButton btnback;
+    private TextView loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class SignupActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.editTextPassword);
         edtConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btnSignup = findViewById(R.id.buttonSignup);
+        btnback = findViewById(R.id.btn_back_signup);
+        loginText = findViewById(R.id.loginText);
     }
 
     private void setupListeners() {
@@ -54,6 +60,8 @@ public class SignupActivity extends AppCompatActivity {
                 sendOtp(email, name, password);
             }
         });
+        btnback.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        loginText.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
     }
 
     private boolean validateInputs(String name, String email, String password, String confirmPassword) {

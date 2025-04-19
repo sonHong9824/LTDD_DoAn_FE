@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,73 +5,69 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_1"
-        app:layout_constraintTop_toTopOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="700dp"
-        android:background="@drawable/poster1">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:paddingVertical="20dp"
-            android:layout_height="wrap_content">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:paddingHorizontal="20dp"
-                android:id="@+id/view_pager_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="170dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/circle_indicator_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                app:ci_drawable="@drawable/bg_indicator_banner"
-                app:layout_constraintTop_toBottomOf="@id/view_pager_banner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-            <TextView
-                android:id="@+id/txt_1"
-                android:paddingTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/circle_indicator_banner"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:background="@drawable/nannenti"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
                 android:paddingVertical="20dp"
-                android:paddingHorizontal="20dp"
-                android:textSize="20sp"
-                android:text="Phim nổi bật"/>
+                android:layout_height="wrap_content">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager_feature"
-                app:layout_constraintTop_toBottomOf="@+id/txt_1"
-                android:layout_width="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingStart="80dp"
-                android:paddingEnd="80dp"
-                android:layout_height="300dp"/>
+                <!-- ViewPager2 đầu tiên -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:paddingHorizontal="20dp"
+                    android:id="@+id/view_pager_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_catagory"
-        android:overScrollMode="never"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/ll_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/circle_indicator_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    app:ci_drawable="@drawable/bg_indicator_banner"
+                    app:layout_constraintTop_toBottomOf="@id/view_pager_banner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/txt_1"
+                    android:paddingTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/circle_indicator_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:paddingVertical="20dp"
+                    android:paddingHorizontal="20dp"
+                    android:textSize="20sp"
+                    android:text="Phim nổi bật" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- ViewPager2 thứ hai -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager_feature"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_1"
+                    android:layout_width="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingHorizontal="80dp"
+                    android:layout_height="400dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_catagory"
+            android:overScrollMode="never"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
