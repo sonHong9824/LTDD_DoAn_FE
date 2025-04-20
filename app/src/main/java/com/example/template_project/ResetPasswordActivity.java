@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,8 +15,6 @@ import com.example.template_project.request.VerifyUserRequest;
 import com.example.template_project.response.UserResponse;
 import com.example.template_project.retrofit.AuthApi;
 import com.example.template_project.retrofit.RetrofitService;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Response;
 import retrofit2.Call;
@@ -38,7 +35,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         edtNewPassword = findViewById(R.id.editTextNewPassword);
         edtConfirmNewPassword = findViewById(R.id.editTextConfirmNewPassword);
-        btnResetPassword = findViewById(R.id.buttonResetPassword);
+        btnResetPassword = findViewById(R.id.buttonChangePassword);
 
         email = getIntent().getStringExtra("email");
         otp = getIntent().getStringExtra("otp");
