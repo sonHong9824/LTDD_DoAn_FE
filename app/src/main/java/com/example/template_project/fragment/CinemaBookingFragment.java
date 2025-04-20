@@ -41,6 +41,7 @@ public class CinemaBookingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cinema_booking, container, false);
         recyclerView = view.findViewById(R.id.cinemaList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        
         loadCinemas();
 
         searchView = view.findViewById(R.id.searchView);

@@ -10,7 +10,7 @@
         android:id="@+id/txtCinemaName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:paddingTop="2dp"
         android:text="Cinema Name"
         android:textColor="@color/black"

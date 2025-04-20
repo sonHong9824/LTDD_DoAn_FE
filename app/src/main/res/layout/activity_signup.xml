@@ -61,16 +61,11 @@
                 </RelativeLayout>
 
                 <!-- Tên người dùng -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tên người dùng"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/edittext_bg"
                     android:hint="Nhập tên người dùng"
@@ -88,16 +83,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Email -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/edittext_bg"
                     android:hint="Nhập email"
@@ -115,16 +105,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Mật khẩu -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mật khẩu"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/edittext_bg"
                     android:hint="Nhập mật khẩu"
@@ -143,16 +128,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Xác nhận mật khẩu -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Xác nhận mật khẩu"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="24dp"
                     android:background="@drawable/edittext_bg"
                     android:hint="Nhập lại mật khẩu"
