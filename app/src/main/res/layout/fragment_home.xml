@@ -12,7 +12,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint"
-                android:background="@drawable/nannenti"
+                android:background="@drawable/backkk"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:paddingVertical="20dp"
