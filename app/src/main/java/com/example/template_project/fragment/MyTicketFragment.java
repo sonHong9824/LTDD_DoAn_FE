@@ -33,7 +33,6 @@ public class MyTicketFragment extends Fragment {
     private List<Ticket> mListTicket;
     private RecyclerView recyclerView;
     private TicketAdapter ticketAdapter;
-    private ImageView btn_back;
     private PrefUser prefUser;
     @Nullable
     @Override
@@ -42,8 +41,6 @@ public class MyTicketFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rc_ticket);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         prefUser = new PrefUser(requireContext());
-        btn_back = view.findViewById(R.id.btn_back_myticket);
-        btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
         getTickets();
 

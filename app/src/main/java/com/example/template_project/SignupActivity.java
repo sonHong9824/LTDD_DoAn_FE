@@ -25,7 +25,6 @@ import retrofit2.Response;
 public class SignupActivity extends AppCompatActivity {
     private EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
     private Button btnSignup;
-    private ImageButton btnback;
     private TextView loginText;
 
     @Override
@@ -45,7 +44,6 @@ public class SignupActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.editTextPassword);
         edtConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         btnSignup = findViewById(R.id.buttonSignup);
-        btnback = findViewById(R.id.btn_back_signup);
         loginText = findViewById(R.id.loginText);
     }
 
@@ -60,7 +58,6 @@ public class SignupActivity extends AppCompatActivity {
                 sendOtp(email, name, password);
             }
         });
-        btnback.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
         loginText.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
     }
 

@@ -94,7 +94,6 @@ public class MovieDetailFragment extends Fragment {
             public void onResponse(Call<FeatureMovie> call, Response<FeatureMovie> response) {
                 if (response.isSuccessful()) {
                     FeatureMovie updatedFeatureMovie = response.body();
-                    // Xử lý khi API trả về thành công
                     Log.d("API", "Phim đã được tăng điểm: " + updatedFeatureMovie.getScore());
                 } else {
                     Log.e("API", "Lỗi khi tăng điểm phim: " + response.code());
