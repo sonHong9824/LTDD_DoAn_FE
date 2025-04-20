@@ -49,7 +49,10 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ViewHolder
             }
         });
     }
-
+    public void setListenerList(List<Cinema> cinemaList) {
+        this.cinemaList = cinemaList;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return (cinemaList != null) ? cinemaList.size() : 0;

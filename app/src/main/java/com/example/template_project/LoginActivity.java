@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.buttonLogin);
         tvForgotPassword = findViewById(R.id.forgetText);
         registerText = findViewById(R.id.registerText);
-        btnback = findViewById(R.id.btn_back_login);
     }
 
     private void setupListeners() {
@@ -64,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(email, password);
             }
         });
-        btnback.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
         registerText.setOnClickListener(v -> startActivity(new Intent(this, SignupActivity.class)));
         tvForgotPassword.setOnClickListener(v -> startActivity(new Intent(this, ForgetPasswordActivity.class)));
     }

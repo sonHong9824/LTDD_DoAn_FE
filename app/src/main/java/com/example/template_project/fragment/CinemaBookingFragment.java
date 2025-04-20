@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.example.template_project.retrofit.CinemaApi;
 import com.example.template_project.retrofit.RetrofitService;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,15 +31,9 @@ import retrofit2.Response;
 public class CinemaBookingFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    String[] tinhThanhArray = {
-            "Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Đồng Nai",
-            "Hải Phòng", "Quảng Ninh", "Bà Rịa-Vũng Tàu", "Bình Định", "Bình Dương",
-            "Đắk Lắk", "Trà Vinh", "Yên Bái", "Vĩnh Long", "Kiên Giang",
-            "Hậu Giang", "Hà Tĩnh", "Phú Yên", "Đồng Tháp", "Bạc Liêu",
-            "Hưng Yên", "Khánh Hòa", "Kon Tum", "Lạng Sơn", "Nghệ An",
-            "Phú Thọ", "Quảng Ngãi", "Sóc Trăng", "Sơn La", "Tây Ninh",
-            "Thái Nguyên", "Tiền Giang"
-    };
+    private SearchView searchView;
+    List<Cinema> cinemaList;
+    CinemaAdapter cinemaAdapter;
 
     @Nullable
     @Override
@@ -46,8 +42,26 @@ public class CinemaBookingFragment extends Fragment {
         recyclerView = view.findViewById(R.id.cinemaList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MaterialSpinner spinerTinh = view.findViewById(R.id.spTinh);
-        spinerTinh.setItems((Object[]) tinhThanhArray);
+
         loadCinemas();
+
+        searchView = view.findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterListener(newText);
+                return true;
+            }
+        });
+
+
         return view;
     }
 
@@ -57,7 +71,8 @@ public class CinemaBookingFragment extends Fragment {
         cinemaApi.getAllCinemas().enqueue(new Callback<List<Cinema>>() {
             @Override
             public void onResponse(Call<List<Cinema>> call, Response<List<Cinema>> response) {
-                populateListView(response.body());
+                cinemaList = response.body();
+                populateListView(cinemaList);
             }
 
             @Override
@@ -68,7 +83,7 @@ public class CinemaBookingFragment extends Fragment {
     }
 
     private void populateListView(List<Cinema> cinemaList) {
-        CinemaAdapter cinemaAdapter = new CinemaAdapter(cinemaList);
+        cinemaAdapter = new CinemaAdapter(cinemaList);
         recyclerView.setAdapter(cinemaAdapter);
         cinemaAdapter.setOnCinemaClickListener(new CinemaAdapter.OnCinemaClickListener() {
             @Override
@@ -77,5 +92,14 @@ public class CinemaBookingFragment extends Fragment {
                 ((MainActivity) requireActivity()).replaceFragment(movieShowtimeFragment);
             }
         });
+    }
+    private void filterListener(String text) {
+        List<Cinema> list = new ArrayList<>();
+        for (Cinema cinema : cinemaList) {
+            if (cinema.getName().toLowerCase().contains(text.toLowerCase())) {
+                list.add(cinema);
+            }
+        }
+        cinemaAdapter.setListenerList(list);
     }
 }
