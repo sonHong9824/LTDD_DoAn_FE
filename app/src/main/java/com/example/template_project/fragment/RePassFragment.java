@@ -1,11 +1,13 @@
 package com.example.template_project.fragment;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class RePassFragment extends Fragment {
     EditText txtCurrentPass, txtNewPass, txtConfirmPass;
     private PrefUser prefUser;
     Button btnConfirm;
+    ImageButton btnBack;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class RePassFragment extends Fragment {
         btnConfirm.setOnClickListener(v -> {
             changePassword();
         });
+
+        btnBack = view.findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         return view;
     }
     private void changePassword() {
