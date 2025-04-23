@@ -39,18 +39,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="22dp"
+            android:layout_margin="10dp"
             android:background="@drawable/white_bg">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cinemaList_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never"
                 android:orientation="vertical"
+                android:overScrollMode="never"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>

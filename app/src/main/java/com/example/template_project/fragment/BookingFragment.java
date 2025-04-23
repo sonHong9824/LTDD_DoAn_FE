@@ -1,6 +1,8 @@
 package com.example.template_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.template_project.Api.CreateOrder;
 import com.example.template_project.R;
 import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.adapter.BookedFoodAdapter;
@@ -33,6 +37,8 @@ import com.example.template_project.retrofit.MovieApi;
 import com.example.template_project.retrofit.RetrofitService;
 import com.example.template_project.retrofit.TicketApi;
 
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,6 +47,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class BookingFragment extends Fragment {
     private ImageView img_movie_booking;
@@ -83,6 +93,12 @@ public class BookingFragment extends Fragment {
         btn_back_booking = view.findViewById(R.id.btn_back_booking);
         btn_next_booking = view.findViewById(R.id.btn_next_booking);
         btn_back_booking.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        ZaloPaySDK.init(2553, Environment.SANDBOX);
+
 
         if (getArguments() != null) {
             bookedFoods = (ArrayList<BookedFood>) getArguments().getSerializable("BOOKED_FOODS");
@@ -134,38 +150,65 @@ public class BookingFragment extends Fragment {
 //                        .replace(R.id.content_frame, paymentFragment)
 //                        .addToBackStack(null)
 //                        .commit();
+                CreateOrder orderApi = new CreateOrder();
 
+                try {
+                    JSONObject data = orderApi.createOrder(String.valueOf(ticketRequest.getPrice()));
+                    Log.d("Amount", String.valueOf(ticketRequest.getPrice()));
+                    String code = data.getString("return_code");
 
-                RetrofitService retrofitService = new RetrofitService();
-                TicketApi ticketApi = retrofitService.getRetrofit().create(TicketApi.class);
-                ticketApi.create(ticketRequest).enqueue(new Callback<Ticket>() {
-                    @Override
-                    public void onResponse(Call<Ticket> call, Response<Ticket> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            Ticket ticket = response.body();
-                            Log.d("TICKET_CREATED", "Ticket ID: " + ticket.getId());
-                            new AlertDialog.Builder(requireContext())
-                                    .setTitle("Đặt vé thành công")
-                                    .setMessage("Bạn đã đặt vé thành công! Cảm ơn bạn đã sử dụng dịch vụ.")
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", (dialog, which) -> {
-                                        HomeFragment homeFragment = new HomeFragment();
-                                        requireActivity().getSupportFragmentManager()
-                                                .beginTransaction()
-                                                .replace(R.id.content_frame, homeFragment)
-                                                .commit();
-                                    })
-                                    .show();
-                        } else {
-                            Log.e("TICKET_ERROR", "Lỗi response: " + response.code());
-                        }
+                    if (code.equals("1")) {
+                        String token = data.getString("zp_trans_token");
+                        ZaloPaySDK.getInstance().payOrder(requireActivity(), token, "demozpdk://app", new PayOrderListener() {
+                            @Override
+                            public void onPaymentSucceeded(String s, String s1, String s2) {
+                                RetrofitService retrofitService = new RetrofitService();
+                                TicketApi ticketApi = retrofitService.getRetrofit().create(TicketApi.class);
+                                ticketApi.create(ticketRequest).enqueue(new Callback<Ticket>() {
+                                    @Override
+                                    public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            Ticket ticket = response.body();
+                                            Log.d("TICKET_CREATED", "Ticket ID: " + ticket.getId());
+                                            new AlertDialog.Builder(requireContext())
+                                                    .setTitle("Đặt vé thành công")
+                                                    .setMessage("Bạn đã đặt vé thành công! Cảm ơn bạn đã sử dụng dịch vụ.")
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, which) -> {
+                                                        HomeFragment homeFragment = new HomeFragment();
+                                                        requireActivity().getSupportFragmentManager()
+                                                                .beginTransaction()
+                                                                .replace(R.id.content_frame, homeFragment)
+                                                                .commit();
+                                                    })
+                                                    .show();
+                                        } else {
+                                            Log.e("TICKET_ERROR", "Lỗi response: " + response.code());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Ticket> call, Throwable t) {
+                                        Log.e("TICKET_API_FAIL", "Lỗi mạng hoặc server: " + t.getMessage());
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onPaymentCanceled(String s, String s1) {
+
+                            }
+
+                            @Override
+                            public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
+
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onFailure(Call<Ticket> call, Throwable t) {
-                        Log.e("TICKET_API_FAIL", "Lỗi mạng hoặc server: " + t.getMessage());
-                    }
-                });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         return view;
@@ -202,5 +245,4 @@ public class BookingFragment extends Fragment {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         tv_date_booking.setText(showtime.getShowtime().format(formatter));
     }
-
 }

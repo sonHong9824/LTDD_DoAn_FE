@@ -28,6 +28,8 @@ import com.example.template_project.fragment.RePassFragment;
 import com.example.template_project.model.User;
 import com.google.android.material.navigation.NavigationView;
 
+import vn.zalopay.sdk.ZaloPaySDK;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final int FRAGMENT_HOME = 1;
@@ -165,6 +167,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addToBackStack(null) // Cho phép quay lại Fragment trước đó
                 .commit();
     }
-
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ZaloPaySDK.getInstance().onResult(intent);
+    }
 }

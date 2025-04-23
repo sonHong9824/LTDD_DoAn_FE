@@ -44,6 +44,11 @@ dependencies {
     implementation(libs.circleindicator)
     implementation(libs.recyclerview)
     implementation(libs.constraintlayout)
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\Admin\\Downloads\\ZaloLib",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -53,4 +58,6 @@ dependencies {
     implementation (libs.pinview)
     implementation (libs.material.spinner)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation("com.squareup.okhttp3:okhttp:4.6.0")
+    implementation("commons-codec:commons-codec:1.14")
 }
