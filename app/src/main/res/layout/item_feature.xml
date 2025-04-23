@@ -53,16 +53,41 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/txt_feature"
+        android:id="@+id/tv_rating_feature"
+        app:layout_constraintTop_toBottomOf="@id/cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableLeft="@drawable/star"
+        android:textSize="18sp"
+        android:layout_marginVertical="5dp"
+        android:drawablePadding="5dp"
+        android:text="1.0/5 (9 đánh giá)"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txt_feature"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Nhà gia tiên"
-        app:layout_constraintTop_toBottomOf="@id/cardView"
-        app:layout_constraintStart_toStartOf="@id/cardView"
-        app:layout_constraintEnd_toEndOf="@id/cardView"
-        android:textSize="22sp"
-        android:textColor="@color/black"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/tv_rating_feature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
+    <TextView
+        android:id="@+id/tv_genre_feature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_feature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Kinh dị"
+        android:textSize="18sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

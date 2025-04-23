@@ -64,10 +64,11 @@
                 android:id="@+id/img_cgv"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="30dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_cinema_ve"
                 app:layout_constraintBottom_toBottomOf="@id/tv_lang_ve"
                 android:src="@drawable/cgv_ed"/>
 

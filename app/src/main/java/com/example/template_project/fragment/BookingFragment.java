@@ -95,8 +95,8 @@ public class BookingFragment extends Fragment {
                 tv_2.setVisibility(View.VISIBLE);
                 rc_food_booking.setVisibility(View.VISIBLE);
             } else {
-                tv_2.setVisibility(View.INVISIBLE);
-                rc_food_booking.setVisibility(View.INVISIBLE);
+                tv_2.setVisibility(View.GONE);
+                rc_food_booking.setVisibility(View.GONE);
             }
         }
         adapter = new BookedFoodAdapter(getContext(), bookedFoods, foods);
