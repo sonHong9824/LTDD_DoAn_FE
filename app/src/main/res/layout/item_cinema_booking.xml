@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="82dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/white_bg">
 
     <TextView
@@ -21,15 +21,21 @@
 
     <TextView
         android:id="@+id/txtCinemaLocation"
-        android:layout_width="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
         android:paddingBottom="18dp"
         android:text="Location"
         android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
+        android:textSize="15sp"
+        android:letterSpacing="0.03"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintStart_toStartOf="@+id/txtCinemaName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCinemaName" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -62,29 +68,15 @@
         app:layout_constraintVertical_bias="0.49"
         app:srcCompat="@drawable/next" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintVertical_bias="0.767"
-            app:srcCompat="@drawable/heart" />
-    </androidx.cardview.widget.CardView>
-
     <View
         android:layout_width="360dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:background="#C2C2C2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCinemaLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

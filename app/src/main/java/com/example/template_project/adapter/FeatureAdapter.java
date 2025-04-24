@@ -89,7 +89,7 @@ public class FeatureAdapter extends RecyclerView.Adapter<FeatureAdapter.FeatureV
             Long totalReviews = movie.getTotalReviews();
             if (totalReviews == 0)
             {
-                holder.txt_rating.setVisibility(View.INVISIBLE);
+                holder.txt_rating.setVisibility(View.GONE);
 
             } else {
                 String ratingText = String.format("%.1f", rating) + "/" + "5 " + "(" +

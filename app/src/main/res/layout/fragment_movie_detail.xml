@@ -301,6 +301,58 @@
                         android:layout_marginEnd="16dp"
                         android:text="Âm Dương Lộ là bộ phim kinh dị hành trình đầu tiên của Việt Nam..." />
             </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/line3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#eeeeee"/>
+                <TextView
+                    android:id="@+id/tv_rating_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/line3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:drawableLeft="@drawable/star"
+                    android:drawablePadding="5dp"
+                    android:text="4"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp" />
+                <TextView
+                    android:id="@+id/tv_total_rating_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
+                    app:layout_constraintStart_toEndOf="@id/tv_rating_review"
+                    android:text="/5 (6 đánh giá)"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/tv_write_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viết đánh giá"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_review"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rating_review"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
