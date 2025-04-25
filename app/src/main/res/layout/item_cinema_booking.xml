@@ -10,30 +10,30 @@
         android:id="@+id/txtCinemaName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="15dp"
         android:paddingTop="2dp"
         android:text="Cinema Name"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView" />
 
     <TextView
         android:id="@+id/txtCinemaLocation"
-        android:layout_marginEnd="30dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:ellipsize="end"
+        android:letterSpacing="0.03"
+        android:maxLines="2"
         android:paddingTop="2dp"
         android:paddingBottom="18dp"
         android:text="Location"
         android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
-        android:letterSpacing="0.03"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintStart_toStartOf="@+id/txtCinemaName"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtCinemaName"
         app:layout_constraintTop_toBottomOf="@+id/txtCinemaName" />
 
 
