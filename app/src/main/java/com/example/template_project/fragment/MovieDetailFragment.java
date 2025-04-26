@@ -161,6 +161,26 @@ public class MovieDetailFragment extends Fragment {
         }
         getReview();
 
+        tvTotalRatingReview.setText(tvTotalRatingReview.getContext().getString(R.string.total_raing, movieSummary.getTotalReviews()));
+        tvRatingReview.setText(tvRatingReview.getContext().getString(R.string.rating, movieSummary.getAverageRating()));
+        tvWriteReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewFragment reviewFragment = new ReviewFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("MOVIE_DATA", movieSummary.getMovie());
+
+                reviewFragment.setArguments(bundle);
+
+                // Chuyển Fragment
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, reviewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         return view;
     }
 
@@ -176,14 +196,6 @@ public class MovieDetailFragment extends Fragment {
                     reviewAdapter = new ReviewAdapter(reviewList, getContext());
                     recyclerView_review.setAdapter(reviewAdapter);
                     recyclerView_review.setLayoutManager(new LinearLayoutManager(getContext()));
-                    tvTotalRatingReview.setText(tvTotalRatingReview.getContext().getString(R.string.total_raing, movieSummary.getTotalReviews()));
-                    tvRatingReview.setText(tvRatingReview.getContext().getString(R.string.rating, movieSummary.getAverageRating()));
-                    tvWriteReview.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
 
                 }
             }
