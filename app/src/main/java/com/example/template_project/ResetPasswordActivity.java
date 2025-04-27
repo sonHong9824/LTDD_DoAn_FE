@@ -35,7 +35,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         edtNewPassword = findViewById(R.id.editTextNewPassword);
         edtConfirmNewPassword = findViewById(R.id.editTextConfirmNewPassword);
-        btnResetPassword = findViewById(R.id.buttonChangePassword);
+        btnResetPassword = findViewById(R.id.buttonResetPassword);
 
         email = getIntent().getStringExtra("email");
         otp = getIntent().getStringExtra("otp");
@@ -64,7 +64,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         AuthApi authApi = retrofitService.getRetrofit().create(AuthApi.class);
 
-        VerifyUserRequest request = new VerifyUserRequest(email, otp, newPassword);
+        VerifyUserRequest request = new VerifyUserRequest(email, newPassword, otp);
 
         authApi.resetPassword(request).enqueue(new Callback<UserResponse>() {
             @Override
