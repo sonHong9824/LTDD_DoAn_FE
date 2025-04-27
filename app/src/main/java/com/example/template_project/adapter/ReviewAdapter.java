@@ -81,6 +81,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                 break;
         }
 
+        holder.tv_content.post(new Runnable() {
+            @Override
+            public void run() {
+                if (holder.tv_content.getLineCount() <= 2) {
+                    holder.tv_xemthem.setVisibility(View.GONE); // Ẩn nút "Xem thêm"
+                } else {
+                    holder.tv_content.setMaxLines(2);
+                    holder.tv_content.setEllipsize(TextUtils.TruncateAt.END);
+                    holder.tv_xemthem.setVisibility(View.VISIBLE); // Hiện nút "Xem thêm"
+                }
+            }
+        });
+
     }
 
     @Override
