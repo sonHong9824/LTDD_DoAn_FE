@@ -31,11 +31,12 @@
             android:text="MY COMBO"/>
         <TextView
             android:id="@+id/tv_desc_food"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:maxLines="2"
-            android:text="1 Bắp Ngọt 60oz + 1 Coke 32oz"/>
+            android:text="1 Bắp Ngọt 60oz + 1 Coke 32oz + 1 Snack + Thêm topping caramel ngọt ngào siêu hấp dẫn"
+            android:textColor="@color/black"
+            />
         <TextView
             android:id="@+id/tv_price_food"
             android:layout_marginVertical="3dp"

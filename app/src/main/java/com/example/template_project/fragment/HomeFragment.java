@@ -251,6 +251,9 @@ public class HomeFragment extends Fragment {
         list.add(new Banner(R.drawable.banner3));
         list.add(new Banner(R.drawable.banner4));
         list.add(new Banner(R.drawable.banner5));
+        list.add(new Banner(R.drawable.banner8));
+        list.add(new Banner(R.drawable.banner9));
+        list.add(new Banner(R.drawable.banner10));
         list.add(list.get(0));
 
         return list;

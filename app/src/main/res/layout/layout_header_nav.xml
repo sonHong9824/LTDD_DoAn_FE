@@ -5,13 +5,12 @@
     android:orientation="vertical"
     android:gravity="bottom"
     android:padding="15dp"
-    android:background="@drawable/black_bg">
+    android:background="@drawable/seat_cinema">
 
     <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/user" />
-
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/user_movie" />
     <TextView
         android:id="@+id/textUserName"
         android:layout_width="wrap_content"
@@ -23,7 +22,6 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
-
     <TextView
         android:id="@+id/textUserEmail"
         android:layout_width="wrap_content"

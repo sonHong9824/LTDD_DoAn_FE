@@ -18,6 +18,7 @@ import com.example.template_project.R;
 import com.example.template_project.model.Genre;
 import com.example.template_project.model.MovieSummary;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,10 +73,11 @@ public class MovieShowingAdapter extends RecyclerView.Adapter<MovieShowingAdapte
                 holder.txt_rating.setVisibility(View.VISIBLE);
             }
         }else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String date = movieSummary.getMovie().getReleaseDate();
             holder.txt_rating.setVisibility(View.GONE);
             holder.txt_date.setVisibility(VISIBLE);
-            holder.txt_rating.setText(date);
+            holder.txt_date.setText(date);
         }
 
         List<Genre> genres = movieSummary.getMovie().getGenres();

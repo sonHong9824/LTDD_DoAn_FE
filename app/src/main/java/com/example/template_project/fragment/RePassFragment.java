@@ -30,7 +30,6 @@ public class RePassFragment extends Fragment {
     EditText txtCurrentPass, txtNewPass, txtConfirmPass;
     private PrefUser prefUser;
     Button btnConfirm;
-    ImageButton btnBack;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,8 +44,6 @@ public class RePassFragment extends Fragment {
             changePassword();
         });
 
-        btnBack = view.findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         return view;
     }
     private void changePassword() {

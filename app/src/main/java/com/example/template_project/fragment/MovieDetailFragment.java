@@ -12,21 +12,30 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.template_project.LoginActivity;
 import com.example.template_project.R;
+import com.example.template_project.SharedPreferences.PrefUser;
 import com.example.template_project.YouTubePlayerActivity;
+import com.example.template_project.adapter.ReviewAdapter;
 import com.example.template_project.model.FeatureMovie;
 import com.example.template_project.model.Genre;
 import com.example.template_project.model.MovieSummary;
+import com.example.template_project.model.Review;
 import com.example.template_project.retrofit.MovieApi;
 import com.example.template_project.retrofit.RetrofitService;
+import com.example.template_project.retrofit.ReviewApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,10 +52,14 @@ public class MovieDetailFragment extends Fragment {
     private MovieSummary movieSummary;
     private ImageView imgMovieDetail;
     private ImageButton btn_trailer,  btn_back;
-    private TextView tvName, tvGenre, tvRating, tvTotalRating,tvDescription, tvScope, tvScopeDesc, tvDate, tvDuration, tvLang;
+    private TextView tvName, tvGenre, tvRating, tvTotalRating,tvDescription, tvScope, tvScopeDesc, tvDate, tvDuration, tvLang, tvRatingReview, tvTotalRatingReview, tvWriteReview;
     private Button btn_book;
     private String trailer_id, movieStatus;
-
+    private ConstraintLayout constraintLayout;
+    private RecyclerView recyclerView_review;
+    private List<Review> reviewList;
+    private PrefUser prefUser;
+    private ReviewAdapter reviewAdapter;
     private static final String ARG_MOVIE_SUMMARY = "MOVIE_SUMMARY";
 
     public static MovieDetailFragment newInstance(MovieSummary movieSummary) {
@@ -61,7 +74,7 @@ public class MovieDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
-
+        prefUser = new PrefUser(getContext());
         // Ánh xạ view
         imgMovieDetail = view.findViewById(R.id.img_movieDetail);
         tvName = view.findViewById(R.id.tv_name);
@@ -75,9 +88,15 @@ public class MovieDetailFragment extends Fragment {
         tvDuration = view.findViewById(R.id.tv_duration);
         tvLang = view.findViewById(R.id.tv_language);
         btn_trailer = view.findViewById(R.id.btn_trailer);
+        constraintLayout = view.findViewById(R.id.constraint_review);
+        recyclerView_review = view.findViewById(R.id.rc_review);
+        tvRatingReview = view.findViewById(R.id.tv_rating_review);
+        tvTotalRatingReview = view.findViewById(R.id.tv_total_rating_review);
+        tvWriteReview = view.findViewById(R.id.tv_write_review);
         btn_book = view.findViewById(R.id.btn_book);
         btn_back = view.findViewById(R.id.btn_back);
         btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+
 
         // Nhận dữ liệu từ arguments
         if (getArguments() != null) {
@@ -140,8 +159,60 @@ public class MovieDetailFragment extends Fragment {
         if (!"NOW_SHOWING".equals(movieStatus)) {
             btn_book.setVisibility(View.GONE);
         }
+        getReview();
+
+        tvTotalRatingReview.setText(tvTotalRatingReview.getContext().getString(R.string.total_raing, movieSummary.getTotalReviews()));
+        tvRatingReview.setText(tvRatingReview.getContext().getString(R.string.rating, movieSummary.getAverageRating()));
+        tvWriteReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewFragment reviewFragment = new ReviewFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("MOVIE_DATA", movieSummary.getMovie());
+
+                reviewFragment.setArguments(bundle);
+
+                // Chuyển Fragment
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, reviewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return view;
+    }
+
+    private void getReview() {
+        RetrofitService retrofitService = new RetrofitService();
+        ReviewApi reviewApi = retrofitService.getRetrofit().create(ReviewApi.class);
+        reviewApi.getReviews(movieSummary.getMovie().getId()).enqueue(new Callback<List<Review>>() {
+            @Override
+            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    reviewList = response.body();
+
+                    reviewAdapter = new ReviewAdapter(reviewList, getContext());
+                    recyclerView_review.setAdapter(reviewAdapter);
+                    recyclerView_review.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Review>> call, Throwable t) {
+                Log.e("ReviewAPI", "Error fetching reviews", t);
+            }
+        });
+
+        if (prefUser.isUserLoggedOut()) {
+            Toast.makeText(getContext(), "Vui lòng đăng nhập để chọn suất chiếu", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        } else {
+
+        }
     }
 
     private void displayMovieDetails(MovieSummary movieSummary) {

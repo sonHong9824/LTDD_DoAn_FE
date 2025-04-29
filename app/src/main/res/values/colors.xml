@@ -16,4 +16,7 @@
     <color name="seat_pick">#E65E9F</color>
     <color name="seat_picked">#E5E5E5</color>
     <color name="date">#CF2B88</color>
+    <color name="color_selected">#D82D8B</color>
+    <color name="color_normal">#000000</color>
+
 </resources>

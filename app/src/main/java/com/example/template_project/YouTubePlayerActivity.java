@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 public class YouTubePlayerActivity extends AppCompatActivity {
 
     private WebView youtubeWebView;
-    private ImageButton btnBack;
     private String videoId;
 
     @Override
@@ -27,7 +26,7 @@ public class YouTubePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_youtube_player);
 
         youtubeWebView = findViewById(R.id.youtubeWebView);
-        btnBack = findViewById(R.id.btnBack);
+        
 
         // Nhận VIDEO_ID từ Intent
         videoId = getIntent().getStringExtra("VIDEO_ID");
@@ -48,8 +47,6 @@ public class YouTubePlayerActivity extends AppCompatActivity {
         String videoUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&fs=1";
         youtubeWebView.loadUrl(videoUrl);
 
-        // Xử lý sự kiện khi nhấn nút Quay lại
-        btnBack.setOnClickListener(v -> finish());
     }
 
     // Ẩn thanh trạng thái và thanh điều hướng

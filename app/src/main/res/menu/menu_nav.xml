@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Group Header -->
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -14,7 +14,9 @@
             android:icon="@drawable/baseline_movie_24"
             android:title="@string/nav_ve_rap" />
     </group>
-    <item android:title="@string/nav_account">
+
+    <!-- Group Header with a custom title -->
+    <item android:title="Tài khoản" >
         <menu>
             <item
                 android:id="@+id/nav_login"
@@ -33,7 +35,5 @@
                 android:icon="@drawable/log_out"
                 android:title="@string/nav_logout" />
         </menu>
-
     </item>
-
 </menu>
