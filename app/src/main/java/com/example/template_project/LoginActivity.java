@@ -27,7 +27,6 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
     private Button btnLogin;
-    private ImageButton btnback;
     private TextView tvForgotPassword, registerText;
     private PrefUser prefUser;
 
@@ -80,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     showToast("Chào " + authUser.getName());
                     prefUser.saveLoginDetails(authUser.getEmail(), authUser.getPassword(), authUser.getName(), authUser.getId());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 } else {

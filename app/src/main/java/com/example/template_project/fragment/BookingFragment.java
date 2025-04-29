@@ -99,7 +99,6 @@ public class BookingFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
         ZaloPaySDK.init(2553, Environment.SANDBOX);
 
-
         if (getArguments() != null) {
             bookedFoods = (ArrayList<BookedFood>) getArguments().getSerializable("BOOKED_FOODS");
             showtime = (Showtime) getArguments().getSerializable("SHOWTIME_DATA");

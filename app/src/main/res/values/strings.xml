@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Template_Project</string>
+    <string name="app_name">Movie Go</string>
     <string name="nav_ve_phim">Đặt vé theo phim</string>
     <string name="nav_ve_rap">Đặt vé theo rạp</string>
     <string name="nav_home">Trang chủ</string>
