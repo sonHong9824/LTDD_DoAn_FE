@@ -108,7 +108,7 @@ public class MovieDetailFragment extends Fragment {
 
         RetrofitService retrofitService = new RetrofitService();
         MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);
-        movieApi.increase(movieSummary.getMovie().getId()).enqueue(new Callback<FeatureMovie>() {
+        movieApi.increase(movieSummary.getMovie().getId(), 1).enqueue(new Callback<FeatureMovie>() {
             @Override
             public void onResponse(Call<FeatureMovie> call, Response<FeatureMovie> response) {
                 if (response.isSuccessful()) {
@@ -148,6 +148,24 @@ public class MovieDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (trailer_id != null && !trailer_id.isEmpty()) {
+                    RetrofitService retrofitService = new RetrofitService();
+                    MovieApi movieApi = retrofitService.getRetrofit().create(MovieApi.class);
+                    movieApi.increase(movieSummary.getMovie().getId(), 1).enqueue(new Callback<FeatureMovie>() {
+                        @Override
+                        public void onResponse(Call<FeatureMovie> call, Response<FeatureMovie> response) {
+                            if (response.isSuccessful()) {
+                                FeatureMovie updatedFeatureMovie = response.body();
+                                Log.d("API", "Phim đã được tăng điểm: " + updatedFeatureMovie.getScore());
+                            } else {
+                                Log.e("API", "Lỗi khi tăng điểm phim: " + response.code());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<FeatureMovie> call, Throwable t) {
+                            Log.e("API", "Lỗi kết nối: " + t.getMessage());
+                        }
+                    });
+
                     Intent intent = new Intent(requireContext(), YouTubePlayerActivity.class);
                     intent.putExtra("VIDEO_ID", trailer_id);
                     startActivity(intent);
@@ -180,6 +198,12 @@ public class MovieDetailFragment extends Fragment {
                         .commit();
             }
         });
+
+        if(movieSummary.getMovie().getStatus().equals("COMING_SOON")){
+            constraintLayout.setVisibility(View.GONE);
+        } else {
+            constraintLayout.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
