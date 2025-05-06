@@ -13,5 +13,6 @@
     <string name="duration">%d phút</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="warning_text">Vé đã mua sẽ <b><font color="#000000">không thể hoàn, hủy, đổi vé.</font></b> Bạn nhớ kiểm tra kỹ thông tin nha!</string>
 
 </resources>
