@@ -52,6 +52,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     showToast("Vui lòng nhập đầy đủ thông tin!");
                     return;
                 }
+                // Kiểm tra độ dài mật khẩu
+                if (newPassword.length() < 6) {
+                    showToast("Mật khẩu phải có ít nhất 6 ký tự!");
+                    return;
+                }
                 if (!newPassword.equals(confirmNewPassword)) {
                     showToast("Mật khẩu xác nhận không khớp!");
                     return;
