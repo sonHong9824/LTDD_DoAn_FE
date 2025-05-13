@@ -66,10 +66,25 @@ public class SignupActivity extends AppCompatActivity {
             showToast("Vui lòng nhập đầy đủ thông tin!");
             return false;
         }
+
+        // Kiểm tra định dạng email
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        if (!email.matches(emailPattern)) {
+            showToast("Email không hợp lệ!");
+            return false;
+        }
+
+        // Kiểm tra độ dài mật khẩu
+        if (password.length() < 6) {
+            showToast("Mật khẩu phải có ít nhất 6 ký tự!");
+            return false;
+        }
+
         if (!password.equals(confirmPassword)) {
             showToast("Mật khẩu xác nhận không khớp!");
             return false;
         }
+
         return true;
     }
 

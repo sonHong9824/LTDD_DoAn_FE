@@ -57,6 +57,11 @@ public class RePassFragment extends Fragment {
             return;
         }
 
+        if (newPass.length() < 6) {
+            Toast.makeText(getContext(), "Mật khẩu mới phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!newPass.equals(confirmPass)) {
             Toast.makeText(getContext(), "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show();
             return;

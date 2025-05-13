@@ -60,7 +60,15 @@ public class LoginActivity extends AppCompatActivity {
             if (email.isEmpty() || password.isEmpty()) {
                 showToast("Vui lòng nhập username và mật khẩu!");
             } else {
-                loginUser(email, password);
+                // Kiểm tra định dạng email
+                String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+                if (!email.matches(emailPattern)) {
+                    showToast("Email không hợp lệ!");
+                } else if (password.length() < 6) {
+                    showToast("Mật khẩu phải có ít nhất 6 ký tự!");
+                } else {
+                    loginUser(email, password);
+                }
             }
         });
         registerText.setOnClickListener(v -> startActivity(new Intent(this, SignupActivity.class)));
