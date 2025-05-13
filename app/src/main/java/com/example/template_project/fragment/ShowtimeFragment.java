@@ -89,6 +89,9 @@ public class ShowtimeFragment extends Fragment {
             fetchShowtimes(selectedDate); // Gọi API khi chọn ngày
         });
         recyclerViewDates.setAdapter(dateAdapter);
+        if (!dateList.isEmpty()) {
+            fetchShowtimes(dateList.get(0).getDate()); // Gọi API cho ngày đầu tiên
+        }
 
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
