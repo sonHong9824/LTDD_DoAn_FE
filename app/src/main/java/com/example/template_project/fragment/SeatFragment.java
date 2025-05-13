@@ -82,7 +82,7 @@ public class SeatFragment extends Fragment {
         btn_back.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
         recyclerViewSeats = view.findViewById(R.id.rc_seat);
-        recyclerViewSeats.setLayoutManager(new GridLayoutManager(getContext(), 8)); // 9 ghế trên một hàng
+        recyclerViewSeats.setLayoutManager(new GridLayoutManager(getContext(), 8)); // 8 ghế trên một hàng
 
         generateSeats(showtime.getId(), seats -> {
             mListSeat = seats;  // Gán lại danh sách ghế

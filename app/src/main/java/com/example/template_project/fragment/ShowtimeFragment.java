@@ -89,6 +89,9 @@ public class ShowtimeFragment extends Fragment {
             fetchShowtimes(selectedDate); // Gọi API khi chọn ngày
         });
         recyclerViewDates.setAdapter(dateAdapter);
+        if (!dateList.isEmpty()) {
+            fetchShowtimes(dateList.get(0).getDate()); // Gọi API cho ngày đầu tiên
+        }
 
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
@@ -156,32 +159,26 @@ public class ShowtimeFragment extends Fragment {
                         tv_noShowtime.setVisibility(View.GONE);
                         expandableListView.setVisibility(View.VISIBLE);
                     }
-
                     if (mListShowtime == null) {
                         mListShowtime = new HashMap<>();
                     } else {
                         mListShowtime.clear();
                     }
-
                     if (mListCinema == null) {
                         mListCinema = new ArrayList<>();
                     } else {
                         mListCinema.clear();
                     }
-
                     for (Showtime showtime : response.body()) {
                         Cinema cinema = showtime.getCinema();
-
                         // Kiểm tra xem rạp phim đã có trong danh sách chưa
                         if (!mListShowtime.containsKey(cinema)) {
                             mListShowtime.put(cinema, new ArrayList<>());
                             mListCinema.add(cinema);
                         }
-
                         // Thêm suất chiếu vào danh sách của rạp tương ứng
                         mListShowtime.get(cinema).add(showtime);
                     }
-
                     // Cập nhật Adapter
                     exShowtimeAdapter = new ExShowtimeAdapter(mListCinema, mListShowtime);
                     expandableListView.setAdapter(exShowtimeAdapter);

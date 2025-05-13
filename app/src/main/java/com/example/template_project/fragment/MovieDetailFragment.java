@@ -184,18 +184,24 @@ public class MovieDetailFragment extends Fragment {
         tvWriteReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReviewFragment reviewFragment = new ReviewFragment();
+                if (prefUser.isUserLoggedOut()) {
+                    Toast.makeText(getContext(), "Vui lòng đăng nhập để viết đánh giá", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    ReviewFragment reviewFragment = new ReviewFragment();
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("MOVIE_DATA", movieSummary.getMovie());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("MOVIE_DATA", movieSummary.getMovie());
 
-                reviewFragment.setArguments(bundle);
+                    reviewFragment.setArguments(bundle);
 
-                // Chuyển Fragment
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, reviewFragment)
-                        .addToBackStack(null)
-                        .commit();
+                    // Chuyển Fragment
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_frame, reviewFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
         });
 
@@ -230,13 +236,7 @@ public class MovieDetailFragment extends Fragment {
             }
         });
 
-        if (prefUser.isUserLoggedOut()) {
-            Toast.makeText(getContext(), "Vui lòng đăng nhập để chọn suất chiếu", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            startActivity(intent);
-        } else {
 
-        }
     }
 
     private void displayMovieDetails(MovieSummary movieSummary) {
