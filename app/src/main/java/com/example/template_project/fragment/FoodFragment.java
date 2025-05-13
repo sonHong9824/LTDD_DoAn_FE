@@ -118,7 +118,8 @@ public class FoodFragment extends Fragment {
 
                     getBookedFoodList();
                     for (int i = 0; i < foodList.size(); i++) {
-                        Log.d("FoodDebug", "Food " + i + ": name=" + foodList.get(i).getName() + ", imageUrl=" + foodList.get(i).getpictureUrl());
+                        Log.d("FoodDebug", "Food " + i + ": name=" + foodList.get(i).getName()
+                                + ", imageUrl=" + foodList.get(i).getpictureUrl());
                     }
 
                 }

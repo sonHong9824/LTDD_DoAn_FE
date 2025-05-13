@@ -110,7 +110,6 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-
         btn_gui_danh_gia.setOnClickListener(v -> {
             if (prefUser.isUserLoggedOut()) {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
@@ -128,7 +127,6 @@ public class ReviewFragment extends Fragment {
                 Log.d("ReviewDebug", "Rating: " + (int) ratingBar.getRating());
                 Log.d("ReviewDebug", "Comment: " + et_content.getText().toString());
 
-
                 RetrofitService retrofitService = new RetrofitService();
                 ReviewApi reviewApi = retrofitService.getRetrofit().create(ReviewApi.class);
                 reviewApi.create(reviewRequest).enqueue(new Callback<Review>() {
@@ -145,7 +143,6 @@ public class ReviewFragment extends Fragment {
                             Toast.makeText(getContext(), "Không thể gửi đánh giá. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Review> call, Throwable t) {
                         Toast.makeText(getContext(), "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -153,10 +150,7 @@ public class ReviewFragment extends Fragment {
                     }
                 });
             }
-
         });
-
-
         return view;
     }
 }
