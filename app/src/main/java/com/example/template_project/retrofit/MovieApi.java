@@ -18,10 +18,7 @@ public interface MovieApi {
     Call<List<MovieSummary>> getComingSoonMovies();
 
     @POST("/feature/increase")
-    Call<FeatureMovie> increase(@Query("id") String id);
-
-    @POST("/feature/increase_for_ticket")
-    Call<FeatureMovie> increase_for_ticket(@Query("id") String id);
+    Call<FeatureMovie> increase(@Query("id") String id, @Query("score") int score);
 
     @GET("/movie/feature")
     Call<List<MovieSummary>> getFeatureMovies();

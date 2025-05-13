@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -158,6 +159,9 @@ public class BookingFragment extends Fragment {
                                     .show();
                         } else {
                             Log.e("TICKET_ERROR", "Lỗi response: " + response.code());
+                            Toast.makeText(getContext(), "Ghế vừa được người khác đặt mất, vui lòng chọn ghế khác", Toast.LENGTH_SHORT).show();
+                            requireActivity().getSupportFragmentManager().popBackStack();
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         }
                     }
 
