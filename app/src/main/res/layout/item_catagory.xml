@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:orientation="vertical">
 
     <TextView
@@ -13,13 +12,14 @@
         android:text="PHIM HAY ĐANG CHIẾU"
         android:textSize="18sp"
         android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_showing"
-        android:layout_marginBottom="10dp"
-        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:overScrollMode="never" />
 
 
 </LinearLayout>

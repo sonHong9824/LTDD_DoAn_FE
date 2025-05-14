@@ -64,7 +64,7 @@ public class ShowtimeMovieAdapter extends RecyclerView.Adapter <ShowtimeMovieAda
         for (Genre genre : genres) {
             genreNames.add(genre.getName()); // Lấy tên thể loại
         }
-        holder.txt_info.setText("Thể loại: " + TextUtils.join(",", genreNames) + " | Thời lượng: " + movieShowtime.getMovie().getDuration());
+        holder.txt_info.setText("Thể loại: " + TextUtils.join(", ", genreNames) + " | Thời lượng: " + movieShowtime.getMovie().getDuration() + " phút");
 
         ShowtimeTypeAdapter showtimeTypeAdapter = new ShowtimeTypeAdapter(movieShowtime.getShowtimetype());
         holder.rc_showtime_type.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));

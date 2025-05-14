@@ -66,6 +66,8 @@ public class MovieBookingAdapter extends RecyclerView.Adapter<MovieBookingAdapte
             drawableRes = R.drawable.anh16;
         } else if ("18+".equals(scope)) {
             drawableRes = R.drawable.anh18;
+        }else if ("P".equals(scope)) {
+            drawableRes = R.drawable.anhp;
         } else {
             drawableRes = R.drawable.error_img;
         }

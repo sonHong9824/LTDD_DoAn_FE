@@ -11,25 +11,40 @@
     <!-- Nút quay lại (cố định) -->
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/back"
-        android:scaleType="centerCrop"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginVertical="5dp"
+        android:layout_marginStart="3dp"
         android:background="@drawable/custom_btn_back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_movie_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="1dp"
+        android:text="Thông tin phim"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
 
     <!-- Nội dung cuộn -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_content"
         android:layout_width="match_parent"
-        android:overScrollMode="never"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/btn_back"
-        app:layout_constraintBottom_toTopOf="@id/btn_book">
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/btn_book"
+        app:layout_constraintTop_toBottomOf="@id/btn_back">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,23 +56,25 @@
                 android:id="@+id/constraint_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageButton
                     android:id="@+id/btn_trailer"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:src="@drawable/banner5"
                     android:background="@null"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/play"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Thông tin phim -->
@@ -65,88 +82,89 @@
                 android:id="@+id/ll_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="-120dp">
+                android:layout_marginTop="-120dp"
+                android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_opacity"
-                    android:layout_margin="15dp">
+                    android:layout_margin="15dp"
+                    android:background="@drawable/background_opacity">
 
                     <androidx.cardview.widget.CardView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:id="@+id/cardView"
                         android:layout_width="120dp"
                         android:layout_height="180dp"
                         app:cardCornerRadius="16dp"
-                        app:cardElevation="4dp">
+                        app:cardElevation="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <ImageView
                             android:id="@+id/img_movieDetail"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/movie1"/>
+                            android:src="@drawable/movie1" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
                         android:text="NHÀ GIA TIÊN"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/cardView"/>
+                        app:layout_constraintStart_toEndOf="@id/cardView"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_genre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:text="Kinh dị"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_name"
-                        app:layout_constraintStart_toEndOf="@id/cardView"/>
+                        app:layout_constraintStart_toEndOf="@id/cardView"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
                     <TextView
                         android:id="@+id/tv_scope"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginStart="10dp"
-                        android:text="18+"
+                        android:layout_marginTop="15dp"
                         android:background="@drawable/custom_tv_scope"
-                        android:textStyle="bold"
                         android:paddingHorizontal="5dp"
+                        android:text="18+"
                         android:textSize="15sp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_genre"
-                        app:layout_constraintStart_toEndOf="@id/cardView"/>
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/cardView"
+                        app:layout_constraintTop_toBottomOf="@id/tv_genre" />
 
                     <TextView
                         android:id="@+id/tv_scope_desc"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/black"
-                        android:text="Phim được phổ biến đến người xem từ đủ 18 tuổi trở lên"
-                        android:textSize="15sp"
-                        android:maxLines="3"
-                        android:ellipsize="end"
                         android:breakStrategy="simple"
-                        app:layout_constraintTop_toBottomOf="@id/tv_genre"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="Phim được phổ biến đến người xem từ đủ 18 tuổi trở lên"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_scope"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/tv_genre" />
 
                     <TextView
                         android:id="@+id/tv_rating"
@@ -159,8 +177,8 @@
                         android:text="@string/rating"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_scope_desc"
-                        app:layout_constraintStart_toEndOf="@id/cardView"/>
+                        app:layout_constraintStart_toEndOf="@id/cardView"
+                        app:layout_constraintTop_toBottomOf="@id/tv_scope_desc" />
 
                     <TextView
                         android:id="@+id/tv_total_rating"
@@ -171,8 +189,8 @@
                         android:text="@string/total_raing"
                         android:textColor="#767171"
                         android:textSize="15sp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_rating"
-                        app:layout_constraintStart_toEndOf="@id/cardView"/>
+                        app:layout_constraintStart_toEndOf="@id/cardView"
+                        app:layout_constraintTop_toBottomOf="@id/tv_rating" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- Hàng ngày chiếu / thời lượng / ngôn ngữ -->
@@ -188,29 +206,31 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="Ngày khởi chiếu"
-                            android:textSize="15sp"
                             android:textColor="#777777"
-                            android:gravity="center" />
+                            android:textSize="15sp" />
+
                         <TextView
                             android:id="@+id/tv_date"
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
                             android:text="09/08/2004"
-                            android:textSize="15sp"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:gravity="center"/>
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="#DDDDDD"/>
+                        android:background="#DDDDDD" />
 
                     <!-- Thời lượng -->
                     <LinearLayout
@@ -218,29 +238,31 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="Thời lượng"
-                            android:textSize="15sp"
                             android:textColor="#777777"
-                            android:gravity="center" />
+                            android:textSize="15sp" />
+
                         <TextView
                             android:id="@+id/tv_duration"
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
                             android:text="110 phút"
                             android:textColor="@color/black"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:gravity="center"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="#DDDDDD"/>
+                        android:background="#DDDDDD" />
 
                     <!-- Ngôn ngữ -->
                     <LinearLayout
@@ -248,23 +270,25 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="Ngôn ngữ"
-                            android:textSize="15sp"
                             android:textColor="#777777"
-                            android:gravity="center" />
+                            android:textSize="15sp" />
+
                         <TextView
                             android:id="@+id/tv_language"
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
                             android:text="Phụ đề"
                             android:textColor="@color/black"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:gravity="center"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -274,90 +298,96 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="#eeeeee"/>
+                android:background="#eeeeee" />
 
             <!-- Nội dung phim -->
             <LinearLayout
                 android:id="@+id/ll_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="Nội dung phim"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_desc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:justificationMode="inter_word"
-                        android:lineSpacingExtra="4dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="Âm Dương Lộ là bộ phim kinh dị hành trình đầu tiên của Việt Nam..." />
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="4dp"
+                    android:text="Âm Dương Lộ là bộ phim kinh dị hành trình đầu tiên của Việt Nam..."
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <View
                     android:id="@+id/line3"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#eeeeee"/>
+                    android:background="#eeeeee"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tv_rating_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/line3"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/star"
                     android:drawablePadding="5dp"
                     android:text="4"
-                    android:textSize="25sp"
                     android:textColor="@color/black"
+                    android:textSize="25sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line3" />
+
                 <TextView
                     android:id="@+id/tv_total_rating_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
-                    app:layout_constraintStart_toEndOf="@id/tv_rating_review"
                     android:text="/5 (6 đánh giá)"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
+                    app:layout_constraintStart_toEndOf="@id/tv_rating_review" />
+
                 <TextView
                     android:id="@+id/tv_write_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Viết đánh giá"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="10dp"
+                    android:text="Viết đánh giá"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_rating_review"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_review"
-                    app:layout_constraintTop_toBottomOf="@id/tv_rating_review"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_rating_review" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.template_project.R;
 import com.example.template_project.YouTubePlayerActivity;
 import com.example.template_project.model.Genre;
@@ -45,7 +47,13 @@ public class MovieDetailBottomSheetFragment extends BottomSheetDialogFragment {
         ImageView btnPlayTraler = view.findViewById(R.id.img_trailer_play);
         movieShowtime = (MovieShowtime) getArguments().getSerializable("movie_data");
         String trailer = movieShowtime.getMovie().getTrailerUrl();
-
+        ImageView background = view.findViewById(R.id.img_trailer_thumbnail);
+        Glide.with(this)
+                .load(movieShowtime.getMovie().getBackdropUrl())
+                .placeholder(R.drawable.placeholder_img)
+                .error(R.drawable.error_img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(background);
         if (getArguments() != null) {
 
             txtTitle.setText(movieShowtime.getMovie().getTitle());
