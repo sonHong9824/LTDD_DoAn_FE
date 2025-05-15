@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.constraintlayout)
     implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\Admin\\Downloads\\ZaloLib",
+        "dir" to "C:\\Users\\ASUS\\Downloads\\ZaloLib",
         "include" to listOf("*.aar", "*.jar"),
         "exclude" to listOf("")
     )))
